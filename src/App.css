@@ -17,6 +17,12 @@
   color: white;
 }
 
-.App-link {
+.App-login {
   color: #09d3ac;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  font-size: 2rem;
+  background: initial;
+  border: 2px solid #09d3ac;
+  box-shadow: 0 0 8px;
 }
