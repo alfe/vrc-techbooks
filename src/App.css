@@ -2,8 +2,9 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+canvas {
+  width: 100%;
+  height: 50vh;
 }
 
 .App-header {
