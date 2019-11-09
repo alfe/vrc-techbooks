@@ -19,11 +19,16 @@ canvas {
 }
 
 .App-login {
-  color: #09d3ac;
+  color: #26B6FF;
   padding: 1rem 2rem;
-  border-radius: 5px;
+  border-radius: 60px;
   font-size: 2rem;
   background: initial;
-  border: 2px solid #09d3ac;
+  border: 2px solid #26B6FF;
   box-shadow: 0 0 8px;
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  z-index: 100;
 }

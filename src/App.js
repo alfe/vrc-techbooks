@@ -1,17 +1,25 @@
 import React from 'react';
-import { providerTwitter } from './config';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 import NonLoginView from './component/NonLoginView'
 import Uploader from './component/Uploader'
 
-function App() {
-  const [userData, setUser] = React.useState(false);
-  const handleLogin = () => providerTwitter(setUser)
+function BaseRouter() {
   return (
-    <div className="App">
-      {!userData && <NonLoginView onClick={handleLogin} />}
-      {!!userData && <Uploader userData={userData} />}
-    </div>
+    <Router>
+      <Switch>
+        <App />
+      </Switch>
+    </Router>
   );
 }
-export default App;
+export default BaseRouter;
+
+const App = () => {
+  return (
+    <div className="App">
+      <Route path="/users" component={Uploader} exact />
+      <Route path="/" component={NonLoginView} exact />
+    </div>
+  );
+};

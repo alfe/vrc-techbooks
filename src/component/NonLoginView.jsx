@@ -1,6 +1,8 @@
 import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { Canvas, useFrame } from 'react-three-fiber'
+import useReactRouter from 'use-react-router';
+import { providerTwitter } from '../config';
 import * as THREE from 'three'
 import logo from './logo.svg';
 import RecruitText from './RecruitText'
@@ -9,6 +11,7 @@ import '../App.css';
 
 const NonLoginView = ({ onClick }) => (
   <header className="App-header">
+    <LoginButton />
     <Canvas className="App-canvas" >
       <Thing />
     </Canvas>
@@ -22,9 +25,6 @@ const NonLoginView = ({ onClick }) => (
       </DaysArea>
       <h2>VRChat技術者へ、 お願いがあります。</h2>
       <RecruitText />
-      {/* <div>
-        <button className="App-login" onClick={onClick}>Login</button>
-      </div> */}
     </InfoArea>
   </header>
 )
@@ -70,3 +70,13 @@ const Thing = () => {
     </mesh>
   )
 }
+
+const LoginButton = () => {
+  const { history, } = useReactRouter();
+  const onClick = () => providerTwitter(() => {
+    history.push('/users');
+  })
+  return (
+    <button className="App-login" onClick={onClick}>Login</button>
+  );
+};
