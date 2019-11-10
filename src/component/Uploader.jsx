@@ -1,20 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-// import { uploadStorage } from '../config';
-import { updateStore, uploadStorage } from '../config';
+import { updateStore, uploadStorage, getUserData } from '../config';
 
 const Uploader = React.memo(() => {
-  const [file, setfile] = React.useState(null);
-  const [menu, setmenu] = React.useState(null);
-  const [boothURL, setBooth] = React.useState('');
-  // const [user, setUser] = React.useState({});
+  const [user, setUser] = React.useState(false);
+  if (!user) {
+    getUserData().then(user => {
+      console.info(user)
+      setUser(user);
+    })
+  }
+  return (!user) ? <div/> : (
+    <UploadForm userData={user} />
+  )
+});
+
+const UploadForm = React.memo(({ userData }) => {
+  const [file, setfile] = React.useState({});
+  const [menu, setmenu] = React.useState({});
+  const [boothURL, setBooth] = React.useState(userData.boothURL || '');
 
   const submit = () => {
-    console.log(file, menu)
     const storeData = {};
     const now = new Date().toLocaleString();
     if (file.name) {
-      uploadStorage(file, `${sessionStorage.getItem('username')}-000.png`)
+      uploadStorage(file, `${sessionStorage.getItem('username')}-cover.png`)
       storeData.PDFSubmittedAt = now;
       storeData.PosterSubmittedAt = now;
     }
@@ -27,29 +37,24 @@ const Uploader = React.memo(() => {
     }
     if (Object.keys(storeData).length !== 0) {
       updateStore(storeData)
+      console.log('uploaded:', storeData)
+      alert('アップロードされました')
     }
   }
-  // getUserData().then(user => {
-  //   console.info(user)
-  //   setUser(user);
-  //   setBooth(user.boothURL || '');
-  // })
-  
+  const uploadedPoster = !userData.PosterSubmittedAt ? false :
+  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}-cover.png?alt=media`;
+  const uploadedMenu = !userData.MenuSubmittedAt ? false :
+  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}-menu.png?alt=media`;
+
   return (
     <UploaderArea>
       <FormsArea>
         <UserName />
-        <FormTitle>見本誌</FormTitle>
-        <BoxInput>
-          <input className="box__file" type="file" name="files[]" id="mihon" onChange={e => setfile(e.target.files[0])} />
-          <label htmlFor="mihon">PDF : A4</label>
-        </BoxInput>
+        <FormTitle>ポスター</FormTitle>
+        <CoverInput uploaded={uploadedPoster} file={file} onChange={file => setfile(file)} />
 
         <FormTitle>お品書き</FormTitle>
-        <BoxInput>
-          <input className="box__file" type="file" name="menu[]" id="menu" onChange={e => setmenu(e.target.files[0])} />
-          <label htmlFor="menu">JPG : 1280×720</label>
-        </BoxInput>
+        <MenuInput uploaded={uploadedMenu} menu={menu} onChange={file => setmenu(file)} />
 
         <FormTitle>頒布場所</FormTitle>
         <TextInput
@@ -58,12 +63,51 @@ const Uploader = React.memo(() => {
           placeholder="https://mmnk-vt.booth.pm/"
           onChange={e => setBooth(e.target.value)} />
 
-        <SendButton onClick={submit}>送信</SendButton>
+        <SendButton disabled={
+          !file.name && !menu.name &&
+          (boothURL === '' || boothURL === userData.boothURL)
+        } onClick={submit}>送信</SendButton>
       </FormsArea>
     </UploaderArea>
   )
 });
 export default Uploader;
+
+const CoverInput = ({ uploaded, file, onChange }) => {
+  const [preview, setPreview] = React.useState(uploaded || false);
+  const onChangeFile = e => {
+    const reader = new FileReader();
+    reader.onload = (e) => setPreview(e.target.result);
+    reader.readAsDataURL(e.target.files[0]);
+    onChange(e.target.files[0])
+  }
+  return (
+    <BoxInput>
+      <input className="box__file" type="file" name="files[]" id="cover" onChange={onChangeFile} />
+      {!preview && <label htmlFor="cover" >JPG : A4(595×842)</label>}
+      {!!preview && <img alt="cover-preview" src={preview} />}
+      {!!preview && <label htmlFor="cover" className="box__file__reupload">再アップロード[JPG : A4(595×842)]</label>}
+    </BoxInput>
+  );
+}
+
+const MenuInput = ({ uploaded, menu, onChange }) => {
+  const [preview, setPreview] = React.useState(uploaded || false);
+  const onChangeMenu = e => {
+    const reader = new FileReader();
+    reader.onload = (e) => setPreview(e.target.result);
+    reader.readAsDataURL(e.target.files[0]);
+    onChange(e.target.files[0])
+  }
+  return (
+    <BoxInput>
+      <input className="box__file" type="file" name="menu[]" id="menu" onChange={onChangeMenu} />
+      {!preview && <label htmlFor="menu">JPG : 1280×720</label>}
+      {!!preview && <img id="menu-preview" alt="menu-preview" src={preview} />}
+      {!!preview && <label htmlFor="cover" className="box__file__reupload">再アップロード[JPG : 1280×720]</label>}
+    </BoxInput>
+  );
+}
 
 const SendButton = styled.button`
   && {
@@ -75,6 +119,13 @@ const SendButton = styled.button`
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius:  1rem;
     cursor: pointer;
+  }
+  &:disabled {
+    background: #CCCCCC;
+  }
+  &:disabled:hover {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    transform: translate(0, 0);
   }
   &:hover {
     box-shadow: none;
@@ -113,6 +164,23 @@ const BoxInput = styled.div`
     cursor: pointer;
     font-size: 3rem;
     color: rgba(0,0,0,0.5);
+  }
+  label.box__file__reupload {
+    padding: .5rem;
+    background: none;
+    border: none;
+    text-align: right;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  img {
+    margin: auto;
+    height: 340px;
+    display: block;
+    padding: 10px 96px;
+    background: #F0F0F0;
+    border: 1px solid #8E8E8E;
+    border-radius: 5px;
   }
   .box__file {
     display: none;
