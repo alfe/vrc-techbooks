@@ -11,7 +11,7 @@ import '../App.css';
 
 const NonLoginView = ({ onClick }) => (
   <header className="App-header">
-    <LoginButton />
+    {/* <LoginButton /> */}
     <Canvas className="App-canvas" >
       <Thing />
     </Canvas>
@@ -19,7 +19,9 @@ const NonLoginView = ({ onClick }) => (
       <h1>VRC技術市</h1>
       <DaysArea>
         <p><DaysLabel>開催日：</DaysLabel>　2020年　2月15日(土)・16日(日)</p>
-        <p><DaysLabel>申込締切：</DaysLabel>　2019年 11月30日(土)</p>
+        <p><DaysLabel>申込締切：</DaysLabel>　<s>2019年 11月30日(土)</s></p>
+        <p><DaysLabel></DaysLabel>　2019年 12月8日(日)</p>
+        <p><DaysLabel></DaysLabel>　締切延長！</p>
         <br />
         <JoinButton />
       </DaysArea>
@@ -44,7 +46,7 @@ const InfoArea = styled.div`
 `;
 const DaysArea = styled.div`
   &&{ 
-    width: ${isMobile ? '18rem' : '28rem'};
+    width: 28rem;
     margin: -2rem auto 4rem;
 }
   p {
@@ -71,12 +73,12 @@ const Thing = () => {
   )
 }
 
-const LoginButton = () => {
-  const { history, } = useReactRouter();
-  const onClick = () => providerTwitter(() => {
-    history.push('/users');
-  })
-  return (
-    <button className="App-login" onClick={onClick}>Login</button>
-  );
-};
+// const LoginButton = () => {
+//   const { history } = useReactRouter();
+//   const onClick = () => providerTwitter(() => {
+//     history.push('/users');
+//   })
+//   return (
+//     <button className="App-login" onClick={onClick}>Login</button>
+//   );
+// };

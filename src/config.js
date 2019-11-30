@@ -33,7 +33,7 @@ export const providerTwitter = (successCallback, errorCallback) => {
           if (successCallback) successCallback();
         }
       } else {
-        console.log("出展者のみログインできます");
+        alert("出展者のみログインできます");
         if (errorCallback) errorCallback();
       }
     }).catch(function(error) {
@@ -47,10 +47,29 @@ export default firebase;
 
 export const getUserData = async () => {
   const db = firebase.firestore();
-  const usersCollectionRef = db.collection('users').doc(sessionStorage.getItem('username'));
+  const username = sessionStorage.getItem('username')
+  if (!username) return;
+  const usersCollectionRef = db.collection('users').doc(username);
   return await usersCollectionRef.get().then((doc) => {
     if (!doc.exists) return {};
     return doc.data();
+  });
+};
+
+export const createUserData = async (displayName, twitter) => {
+  const db = firebase.firestore();
+  const twitterId = twitter.toLowerCase()
+  const usersCollectionRef = db.collection('users').doc(twitterId).set({
+    twitterId,
+    displayName,
+    isExhibitor: true,
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+      return (usersCollectionRef)
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
   });
 };
 
@@ -59,6 +78,7 @@ export const uploadStorage = async (fileContent, filename) => {
   const uploadRef = storageRef.child(filename).put(fileContent)
   return uploadRef.then((snapshot) => {
     console.log('uploaded: ', snapshot)
+    alert('アップロードされました')
     return snapshot
   });
 };
