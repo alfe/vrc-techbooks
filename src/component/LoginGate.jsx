@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const LoginGate = ({ onClick }) => (
   <LoginGateArea>
-    <h2>VRC技術市 出展者用のなにか</h2>
+    <h2>VRC技術市 出展者用アップローダ</h2>
     <button className="App-login" onClick={onClick}>Login</button>
   </LoginGateArea>
 )

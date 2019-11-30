@@ -37,13 +37,21 @@ const UploadForm = React.memo(({ userData }) => {
       uploadStorage(menu, `${sessionStorage.getItem('username')}-menu.png`)
       storeData.MenuSubmittedAt = now;
     }
+    if (Object.keys(storeData).length !== 0) {
+      await updateStore(storeData)
+      console.log('uploaded:', storeData)
+      if (!!successCallback) successCallback()
+    }
+  }
+  const boothUrlSubmit = async () => {
+    const storeData = {};
     if (boothURL !== '') {
       storeData.boothURL = boothURL;
     }
     if (Object.keys(storeData).length !== 0) {
       await updateStore(storeData)
       console.log('uploaded:', storeData)
-      if (successCallback) successCallback()
+      alert('頒布場所の情報がアップデートされました')
     }
   }
   const uploadedPoster = !userData.PosterSubmittedAt ? false :
@@ -77,7 +85,7 @@ const UploadForm = React.memo(({ userData }) => {
 
         <SendButton width="149px" disabled={
           (boothURL === '' || boothURL === userData.boothURL)
-        } onClick={submit}>送信</SendButton>
+        } onClick={boothUrlSubmit}>送信</SendButton>
       </FormsArea>
     </UploaderArea>
   )

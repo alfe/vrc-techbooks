@@ -49,7 +49,7 @@ export const getUserData = async () => {
   const db = firebase.firestore();
   const username = sessionStorage.getItem('username')
   if (!username) return;
-  const usersCollectionRef = db.collection('users').doc(username);
+  const usersCollectionRef = db.collection('users').doc(username.toLowerCase());
   return await usersCollectionRef.get().then((doc) => {
     if (!doc.exists) return {};
     return doc.data();
