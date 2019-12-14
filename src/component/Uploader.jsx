@@ -19,6 +19,15 @@ const Uploader = React.memo(() => {
     <UploadForm userData={user} />
   )
 });
+// eslint-disable-next-line no-unused-vars
+const AddUser = () => {
+  const createUser = () => {
+    createUserData('yuzu_deb66', 'yuzu_deb66');
+  }
+  return (
+    <button onClick={createUser}>add</button>
+  )
+}
 
 const UploadForm = React.memo(({ userData }) => {
   const [file, setfile] = React.useState({});
@@ -62,6 +71,7 @@ const UploadForm = React.memo(({ userData }) => {
   return (
     <UploaderArea>
       <FormsArea>
+        {/* <AddUser /> */}
         <UserName />
         <FormTitle>ポスター</FormTitle>
         <p style={{ fontSize: '.8em', marginRop: '-1em' }}>（オプション：ポスターの設定をせず見本誌をアップロードすると、1ページ目がポスターとして使用されます）</p>

@@ -20,18 +20,18 @@ export const providerTwitter = (successCallback, errorCallback) => {
     const { username } = result.additionalUserInfo
     
     const db = firebase.firestore();
-    const usersCollectionRef = db.collection('users').doc(username);
+    const usersCollectionRef = db.collection('users').doc(username.toLowerCase());
+    const setUserCollection = async () => {
+      await usersCollectionRef.set({ displayName, photoURL, uid }, { merge: true });
+      if (successCallback) successCallback();
+    };
     usersCollectionRef.get().then((doc) => {
       if (doc.exists) {
-        const { isExhibitor } = doc.data();
-        if (isExhibitor) {
-          usersCollectionRef.set({ displayName, photoURL, uid }, { merge: true });
-          sessionStorage.setItem('username', username);
-          sessionStorage.setItem('displayName', displayName);
-          sessionStorage.setItem('photoURL', photoURL);
-          sessionStorage.setItem('uid', uid);
-          if (successCallback) successCallback();
-        }
+        sessionStorage.setItem('username', username.toLowerCase());
+        sessionStorage.setItem('displayName', displayName);
+        sessionStorage.setItem('photoURL', photoURL);
+        sessionStorage.setItem('uid', uid);
+        setUserCollection(successCallback);
       } else {
         alert("出展者のみログインできます");
         if (errorCallback) errorCallback();
@@ -53,6 +53,15 @@ export const getUserData = async () => {
   return await usersCollectionRef.get().then((doc) => {
     if (!doc.exists) return {};
     return doc.data();
+  });
+};
+export const getUserList = async (successCallback) => {
+  const db = firebase.firestore();
+  const usersCollectionRef = db.collection('users');
+  return await usersCollectionRef.get().then((docs) => {
+    const userlist = docs.docs.map(doc => doc.data());
+    if (successCallback) successCallback(userlist);
+    return userlist;
   });
 };
 

@@ -1,11 +1,10 @@
 import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { Canvas, useFrame } from 'react-three-fiber'
-import useReactRouter from 'use-react-router';
-import { providerTwitter } from '../config';
 import * as THREE from 'three'
 import logo from './logo.svg';
 import RecruitText from './RecruitText'
+import ParticipantListButton from './ParticipantListButton'
 import JoinButton from './JoinButton'
 import '../App.css';
 
@@ -18,13 +17,14 @@ const NonLoginView = ({ onClick }) => (
     <InfoArea>
       <h1>VRC技術市</h1>
       <DaysArea>
+        <p><DaysLabel>申込締切：</DaysLabel>　2020年　1月13日(月・祝)</p>
         <p><DaysLabel>開催日：</DaysLabel>　2020年　2月15日(土)・16日(日)</p>
-        <p><DaysLabel>申込締切：</DaysLabel>　<s>2019年 11月30日(土)</s></p>
-        <p><DaysLabel></DaysLabel>　2019年 12月8日(日)</p>
-        <p><DaysLabel></DaysLabel>　締切延長！</p>
         <br />
-        <JoinButton />
       </DaysArea>
+      <Flex>
+        {/* <ParticipantListButton /> */}
+        <JoinButton />
+      </Flex>
       <h2>VRChat技術者へ、 お願いがあります。</h2>
       <RecruitText />
     </InfoArea>
@@ -59,6 +59,19 @@ const DaysArea = styled.div`
 const DaysLabel = styled.span`
   width: 5em;
   display: inline-block;
+`;
+const Flex = styled.div`
+  && {
+    width: 80vw;
+    max-width: 960px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  && > a {
+    width: 25rem;
+  }
 `;
 
 const Thing = () => {

@@ -1,6 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
-import { Canvas, useFrame, useThree, useResource, extend  } from 'react-three-fiber'
+import { Canvas, useFrame, useThree, extend  } from 'react-three-fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as THREE from 'three'
 import Button from '@material-ui/core/Button';
@@ -9,8 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import poster from './mmnk_0.jpg';
-import menuImage from './mmnk_menu.jpg';
 import SendButton from './SendButton'
 
 extend({ OrbitControls })
@@ -89,8 +86,8 @@ const Thing = ({ file, menu }) => {
 
   getFileTexture(file, settexture)
   getFileTexture(menu, setMenutexture)
-  const texture = new THREE.TextureLoader().load(fileRead || poster);
-  const menuTexture = new THREE.TextureLoader().load(menuRead || menuImage);
+  const texture = new THREE.TextureLoader().load(fileRead);
+  const menuTexture = new THREE.TextureLoader().load(menuRead);
 
   return (
     <React.Fragment>
