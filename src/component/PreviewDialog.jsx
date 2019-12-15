@@ -8,7 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import SendButton from './SendButton'
 
 extend({ OrbitControls })
 
@@ -19,11 +18,12 @@ const PreviewDialog = ({ file, menu, onSubmit }) => {
   }
   return (
     <React.Fragment>
-      <SendButton
+      <Button
+        variant="contained" color="primary" 
         disabled={!file.name || !menu.name}
         onClick={() => setOpen(true)}>
         プレビュー
-      </SendButton>
+      </Button>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -47,7 +47,7 @@ const PreviewDialog = ({ file, menu, onSubmit }) => {
           <Button onClick={() => setOpen(false)} color="primary">
             キャンセル
           </Button>
-          <Button onClick={handleSubmit} color="primary" autoFocus>
+          <Button onClick={handleSubmit} variant="contained" color="primary" autoFocus >
             アップロード
           </Button>
         </DialogActions>

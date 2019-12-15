@@ -82,12 +82,12 @@ export const createUserData = async (displayName, twitter) => {
   });
 };
 
-export const uploadStorage = async (fileContent, filename) => {
+export const uploadStorage = async (fileContent, filename, successCallback) => {
   const storageRef = firebase.storage().ref();
   const uploadRef = storageRef.child(filename).put(fileContent)
   return uploadRef.then((snapshot) => {
     console.log('uploaded: ', snapshot)
-    alert('アップロードされました')
+    if (successCallback) successCallback()
     return snapshot
   });
 };

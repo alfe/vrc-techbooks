@@ -39,18 +39,6 @@ export const MenuInput = ({ uploaded, menu, onChange }) => {
   );
 }
 
-export const SampleBookInput = ({ uploaded, menu, onChange }) => {
-  const [preview] = React.useState(uploaded || false);
-  return (
-    <BoxInput>
-      <input className="box__file" type="file" name="menu[]" id="samplebook" disabled={true} />
-      {!preview && <label htmlFor="samplebook">準備中<br />PDF: A4(595×842)</label>}
-      {!!preview && <img id="menu-preview" alt="menu-preview" src={preview} />}
-      {!!preview && <label htmlFor="cover" className="box__file__reupload">再アップロード[PDF : 1280×720]</label>}
-    </BoxInput>
-  );
-}
-
 export const TextInput = styled.input`
   && {
     border: 0;

@@ -1,9 +1,10 @@
 import React from 'react'
 import { providerTwitter, updateStore, uploadStorage, getUserData, createUserData } from '../config';
 import PreviewDialog from './PreviewDialog'
-import SendButton from './SendButton'
 import LoginGate from './LoginGate'
-import { CoverInput, MenuInput, SampleBookInput, TextInput, FormTitle, UserName, UploaderArea, FormsArea } from './UploaderItems'
+import Button from '@material-ui/core/Button';
+import { CoverInput, MenuInput, TextInput, FormTitle, UserName, UploaderArea, FormsArea } from './UploaderItems'
+import { SampleBookInput } from './SampleBookInput'
 
 const Uploader = React.memo(() => {
   const [user, setUser] = React.useState(false);
@@ -73,6 +74,9 @@ const UploadForm = React.memo(({ userData }) => {
       <FormsArea>
         {/* <AddUser /> */}
         <UserName />
+        <FormTitle>見本誌 *</FormTitle>
+        <SampleBookInput />
+
         <FormTitle>ポスター</FormTitle>
         <p style={{ fontSize: '.8em', marginRop: '-1em' }}>（オプション：ポスターの設定をせず見本誌をアップロードすると、1ページ目がポスターとして使用されます）</p>
         <CoverInput uploaded={uploadedPoster} file={file} onChange={file => setfile(file)} />
@@ -82,10 +86,6 @@ const UploadForm = React.memo(({ userData }) => {
 
         <PreviewDialog file={file} menu={menu} onSubmit={submit} />
 
-        <FormTitle>見本誌 *</FormTitle>
-        <SampleBookInput />
-        <SendButton width="149px" disabled={true}>送信</SendButton>
-
         <FormTitle>頒布場所 *</FormTitle>
         <TextInput
           type="text"
@@ -93,9 +93,10 @@ const UploadForm = React.memo(({ userData }) => {
           placeholder="https://mmnk-vt.booth.pm/"
           onChange={e => setBooth(e.target.value)} />
 
-        <SendButton width="149px" disabled={
-          (boothURL === '' || boothURL === userData.boothURL)
-        } onClick={boothUrlSubmit}>送信</SendButton>
+        <Button width="149px"
+          variant="contained" color="primary" 
+          disabled={(boothURL === '' || boothURL === userData.boothURL)}
+          onClick={boothUrlSubmit}>送信</Button>
       </FormsArea>
     </UploaderArea>
   )
