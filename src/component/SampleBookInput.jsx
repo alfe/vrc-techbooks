@@ -97,7 +97,10 @@ const renderMainToCanvas = async (fileData, canvasRef, setTotalPages, setPage, s
   const renderAndUpload = (page) => {
     setPage(page)
     if (page > pdf.numPages) {
-      updateStore({ SampleSubmittedAt: new Date().toLocaleString() })
+      updateStore({
+        sampleSubmittedAt: new Date().toLocaleString(),
+        totalPages: pdf.numPages,
+      })
       alert("アップロードが完了しました")
       if (successCallback) successCallback()
       return
@@ -112,7 +115,7 @@ const renderMainToCanvas = async (fileData, canvasRef, setTotalPages, setPage, s
       }, 300);
     }, 300);
   }
-  setTotalPages(pdf.numPages - 2)
+  setTotalPages(pdf.numPages - 1)
   renderAndUpload(2)
 }
 
