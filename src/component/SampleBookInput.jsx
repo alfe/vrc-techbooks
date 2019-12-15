@@ -65,6 +65,10 @@ const renderCoverToCanvas = async (fileData, canvasRef) => {
     transform: [1, 0, 0, 1, 0, 0],
   }).promise
   uploadImage({ canvas, index: 0, page: 'cover' })
+  if (!sessionStorage.sampleSubmittedAt) {
+    uploadImage({ canvas, index: 0, page: 'poster' })
+    await updateStore({ PosterSubmittedAt: new Date().toLocaleString() })
+  }
 
   // for bk cover
   // window.setTimeout(async () => {

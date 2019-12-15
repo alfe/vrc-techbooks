@@ -39,13 +39,14 @@ const UploadForm = React.memo(({ userData }) => {
     const storeData = {};
     const now = new Date().toLocaleString();
     if (file.name) {
-      uploadStorage(file, `${sessionStorage.getItem('username')}-cover.png`)
-      storeData.PDFSubmittedAt = now;
+      uploadStorage(file, `${sessionStorage.getItem('username')}-poster.png`)
       storeData.PosterSubmittedAt = now;
+      sessionStorage.setItem('PosterSubmittedAt', now)
     }
     if (menu.name) {
       uploadStorage(menu, `${sessionStorage.getItem('username')}-menu.png`)
       storeData.MenuSubmittedAt = now;
+      sessionStorage.setItem('MenuSubmittedAt', now)
     }
     if (Object.keys(storeData).length !== 0) {
       await updateStore(storeData)
@@ -57,6 +58,7 @@ const UploadForm = React.memo(({ userData }) => {
     const storeData = {};
     if (boothURL !== '') {
       storeData.boothURL = boothURL;
+      sessionStorage.setItem('boothURL', boothURL)
     }
     if (Object.keys(storeData).length !== 0) {
       await updateStore(storeData)
@@ -65,9 +67,9 @@ const UploadForm = React.memo(({ userData }) => {
     }
   }
   const uploadedPoster = !userData.PosterSubmittedAt ? false :
-  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}-cover.png?alt=media`;
+  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}/${sessionStorage.getItem('username')}-poster.png?alt=media`;
   const uploadedMenu = !userData.MenuSubmittedAt ? false :
-  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}-menu.png?alt=media`;
+  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}/${sessionStorage.getItem('username')}-menu.png?alt=media`;
 
   return (
     <UploaderArea>
