@@ -67,9 +67,9 @@ const UploadForm = React.memo(({ userData }) => {
     }
   }
   const uploadedPoster = !userData.PosterSubmittedAt ? false :
-  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}/${sessionStorage.getItem('username')}-poster.png?alt=media`;
+  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}-poster.png?alt=media`;
   const uploadedMenu = !userData.MenuSubmittedAt ? false :
-  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}/${sessionStorage.getItem('username')}-menu.png?alt=media`;
+  `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}-menu.png?alt=media`;
 
   return (
     <UploaderArea>
@@ -77,7 +77,7 @@ const UploadForm = React.memo(({ userData }) => {
         {/* <AddUser /> */}
         <UserName />
         <FormTitle>見本誌 *</FormTitle>
-        <SampleBookInput />
+        <SampleBookInput PDFSubmittedAt={userData.PDFSubmittedAt}/>
 
         <FormTitle>ポスター</FormTitle>
         <p style={{ fontSize: '.8em', marginRop: '-1em' }}>（オプション：ポスターの設定をせず見本誌をアップロードすると、1ページ目がポスターとして使用されます）</p>

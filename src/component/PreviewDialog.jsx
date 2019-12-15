@@ -14,7 +14,10 @@ extend({ OrbitControls })
 const PreviewDialog = ({ file, menu, onSubmit }) => {
   const [open, setOpen] = React.useState(false);
   const handleSubmit = () => {
-    onSubmit(() => setOpen(false))
+    onSubmit(() => {
+      setOpen(false)
+      alert('ブースの画像がアップデートされました')
+    })
   }
   return (
     <React.Fragment>
