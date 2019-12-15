@@ -144,7 +144,7 @@ const uploadImage = ({ canvas, index, page, successCallback }) => {
     buf[i] = data.charCodeAt(i)
   }
   const blob = new Blob([buf], { type: mime })
-  const imageName = `${sessionStorage.getItem('username')}/${sessionStorage.getItem('username')}-${index}-${page}.png`
+  const imageName = `${sessionStorage.getItem('username')}-${index}-${page}.png`
   const imageFile = new File([blob], imageName, {
     lastModified: new Date().getTime(),
   })
