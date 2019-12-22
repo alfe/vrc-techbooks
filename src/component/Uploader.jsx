@@ -22,8 +22,8 @@ const Uploader = React.memo(() => {
 });
 // eslint-disable-next-line no-unused-vars
 const AddUser = () => {
-  const createUser = () => {
-    createUserData('yuzu_deb66', 'yuzu_deb66');
+  const createUser = () => { // displayName, twitter
+    createUserData('wata_pj', 'allkavt');
   }
   return (
     <button onClick={createUser}>add</button>

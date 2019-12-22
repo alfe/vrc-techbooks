@@ -22,7 +22,7 @@ const NonLoginView = ({ onClick }) => (
         <br />
       </DaysArea>
       <Flex>
-        {/* <ParticipantListButton /> */}
+        <ParticipantListButton />
         <JoinButton />
       </Flex>
       <h2>VRChat技術者へ、 お願いがあります。</h2>
