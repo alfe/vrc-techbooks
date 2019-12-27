@@ -46,9 +46,9 @@ const InfoArea = styled.div`
 `;
 const DaysArea = styled.div`
   &&{ 
-    width: 28rem;
-    margin: -2rem auto 4rem;
-}
+    width: ${isMobile ? '16rem' : '28rem;'}
+    margin: -2rem auto 2rem;
+  }
   p {
     font-size: 0.7em;
     margin: .5rem 0;
@@ -62,7 +62,8 @@ const DaysLabel = styled.span`
 `;
 const Flex = styled.div`
   && {
-    width: 80vw;
+    width: ${isMobile ? '100vw' : '80vw;'}
+    margin: auto;
     max-width: 960px;
     display: flex;
     align-items: center;

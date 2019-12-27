@@ -59,7 +59,9 @@ export const getUserList = async (successCallback) => {
   const db = firebase.firestore();
   const usersCollectionRef = db.collection('users');
   return await usersCollectionRef.get().then((docs) => {
-    const userlist = docs.docs.map(doc => doc.data());
+    const userlist = docs.docs
+      .map(doc => doc.data())
+      .sort((a, b) => a.place - b.place);
     if (successCallback) successCallback(userlist);
     return userlist;
   });
@@ -94,5 +96,11 @@ export const uploadStorage = async (fileContent, filename, successCallback) => {
 export const updateStore = async (values) => {
   const db = firebase.firestore();
   const usersCollectionRef = db.collection('users').doc(sessionStorage.getItem('username'));
+  usersCollectionRef.set(values, { merge: true });
+};
+
+export const setDatas = async (username, values) => {
+  const db = firebase.firestore();
+  const usersCollectionRef = db.collection('users').doc(username);
   usersCollectionRef.set(values, { merge: true });
 };
