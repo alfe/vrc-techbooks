@@ -34,6 +34,7 @@ const UploadForm = React.memo(({ userData }) => {
   const [file, setfile] = React.useState({});
   const [menu, setmenu] = React.useState({});
   const [boothURL, setBooth] = React.useState(userData.boothURL || '');
+  const [prefab, setPrefab] = React.useState({});
 
   const submit = async (successCallback) => {
     const storeData = {};
@@ -65,6 +66,16 @@ const UploadForm = React.memo(({ userData }) => {
       console.log('uploaded:', storeData)
       alert('頒布場所の情報がアップデートされました')
     }
+  }
+  const onChangePrefab = e => {
+    setPrefab(e.target.files.item(0))
+  }
+  const prefabSubmit = async () => {
+    const now = new Date().toLocaleString();
+    uploadStorage(prefab, prefab.name)
+    await updateStore({ PrefabSubmittedAt: now })
+    sessionStorage.setItem('PrefabSubmittedAt', now)
+    alert('ファイルがアップロードされました')
   }
   const uploadedPoster = !userData.PosterSubmittedAt ? false :
   `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}-poster.png?alt=media`;
@@ -99,6 +110,14 @@ const UploadForm = React.memo(({ userData }) => {
           variant="contained" color="primary" 
           disabled={(boothURL === '' || boothURL === userData.boothURL)}
           onClick={boothUrlSubmit}>送信</Button>
+
+        <FormTitle>小物<span style={{ fontSize: '.8em', marginRop: '-1em' }}>（オプション）</span></FormTitle>
+        <input type="file" onChange={onChangePrefab} />
+        <br /><br />
+        <Button width="149px"
+          variant="contained" color="primary" 
+          disabled={!prefab.name}
+          onClick={prefabSubmit}>送信</Button>
       </FormsArea>
     </UploaderArea>
   )
