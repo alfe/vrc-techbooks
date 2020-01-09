@@ -1,6 +1,6 @@
 import React from 'react'
 import { providerTwitter, updateStore, uploadStorage, getUserData, createUserData } from '../config';
-import PreviewDialog from './PreviewDialog'
+// import PreviewDialog from './PreviewDialog'
 import LoginGate from './LoginGate'
 import Button from '@material-ui/core/Button';
 import { CoverInput, MenuInput, TextInput, FormTitle, UserName, UploaderArea, FormsArea } from './UploaderItems'
@@ -36,36 +36,27 @@ const UploadForm = React.memo(({ userData }) => {
   const [boothURL, setBooth] = React.useState(userData.boothURL || '');
   const [prefab, setPrefab] = React.useState({});
 
-  const submit = async (successCallback) => {
-    const storeData = {};
+  const posterSubmit = async () => {
     const now = new Date().toLocaleString();
-    if (file.name) {
-      uploadStorage(file, `${sessionStorage.getItem('username')}-poster.png`)
-      storeData.PosterSubmittedAt = now;
-      sessionStorage.setItem('PosterSubmittedAt', now)
-    }
-    if (menu.name) {
-      uploadStorage(menu, `${sessionStorage.getItem('username')}-menu.png`)
-      storeData.MenuSubmittedAt = now;
-      sessionStorage.setItem('MenuSubmittedAt', now)
-    }
-    if (Object.keys(storeData).length !== 0) {
-      await updateStore(storeData)
-      console.log('uploaded:', storeData)
-      if (!!successCallback) successCallback()
-    }
+    uploadStorage(file, `${sessionStorage.getItem('username')}-poster.png`)
+    await updateStore({ PosterSubmittedAt: now })
+    sessionStorage.setItem('PosterSubmittedAt', now)
+    alert('ポスターがアップデートされました');
+    setfile({})
+  }
+  const menuSubmit = async () => {
+    const now = new Date().toLocaleString();
+    uploadStorage(menu, `${sessionStorage.getItem('username')}-menu.png`)
+    await updateStore({ MenuSubmittedAt: now })
+    sessionStorage.setItem('MenuSubmittedAt', now)
+    alert('お品書きがアップデートされました');
+    setmenu({})
   }
   const boothUrlSubmit = async () => {
-    const storeData = {};
-    if (boothURL !== '') {
-      storeData.boothURL = boothURL;
-      sessionStorage.setItem('boothURL', boothURL)
-    }
-    if (Object.keys(storeData).length !== 0) {
-      await updateStore(storeData)
-      console.log('uploaded:', storeData)
-      alert('頒布場所の情報がアップデートされました')
-    }
+    await updateStore({ boothURL })
+    sessionStorage.setItem('boothURL', boothURL)
+    console.log('uploaded:', `boothURL: ${boothURL}`)
+    alert('頒布場所の情報がアップデートされました')
   }
   const onChangePrefab = e => {
     setPrefab(e.target.files.item(0))
@@ -87,31 +78,36 @@ const UploadForm = React.memo(({ userData }) => {
       <FormsArea>
         {/* <AddUser /> */}
         <UserName />
-        <FormTitle>見本誌 *</FormTitle>
+        <FormTitle>見本誌 <Memo>*必須 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
         <SampleBookInput PDFSubmittedAt={userData.PDFSubmittedAt}/>
 
-        <FormTitle>ポスター</FormTitle>
-        <p style={{ fontSize: '.8em', marginRop: '-1em' }}>（オプション：ポスターの設定をせず見本誌をアップロードすると、1ページ目がポスターとして使用されます）</p>
-        <CoverInput uploaded={uploadedPoster} file={file} onChange={file => setfile(file)} />
-
-        <FormTitle>お品書き *</FormTitle>
+        <FormTitle>お品書き <Memo>*必須 → 1/26一次受付  ◆  2/8締切</Memo></FormTitle>
         <MenuInput uploaded={uploadedMenu} menu={menu} onChange={file => setmenu(file)} />
+        <Button width="149px"
+          variant="contained" color="primary" 
+          disabled={!menu.name}
+          onClick={menuSubmit}>送信</Button>
 
-        <PreviewDialog file={file} menu={menu} onSubmit={submit} />
-
-        <FormTitle>頒布場所 *</FormTitle>
+        <FormTitle>頒布場所 <Memo>*必須 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
         <TextInput
           type="text"
           value={boothURL}
           placeholder="https://mmnk-vt.booth.pm/"
           onChange={e => setBooth(e.target.value)} />
-
         <Button width="149px"
           variant="contained" color="primary" 
           disabled={(boothURL === '' || boothURL === userData.boothURL)}
           onClick={boothUrlSubmit}>送信</Button>
 
-        <FormTitle>小物<span style={{ fontSize: '.8em', marginRop: '-1em' }}>（オプション）</span></FormTitle>
+        <FormTitle>ポスター<Memo>オプション → 1/17 一次受付  ◆  2/8締切</Memo></FormTitle>
+        <p style={{ fontSize: '.8em', marginTop: '-1em' }}>（ポスターの設定をせず見本誌をアップロードすると、1ページ目がポスターとして使用されます）</p>
+        <CoverInput uploaded={uploadedPoster} file={file} onChange={file => setfile(file)} />
+        <Button width="149px"
+          variant="contained" color="primary" 
+          disabled={!file.name}
+          onClick={posterSubmit}>送信</Button>
+
+        <FormTitle>小物<Memo>オプション → 1/19 一次受付  ◆  2/2締切</Memo></FormTitle>
         <input type="file" onChange={onChangePrefab} />
         <br /><br />
         <Button width="149px"
@@ -123,3 +119,7 @@ const UploadForm = React.memo(({ userData }) => {
   )
 });
 export default Uploader;
+
+const Memo = ({ children }) => (
+  <span style={{ fontSize: '.8em', marginLeft: '1em' }}>{children}</span>
+);

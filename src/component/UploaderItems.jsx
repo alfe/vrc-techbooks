@@ -76,7 +76,6 @@ const BoxInput = styled.div`
     font-size: 1rem;
   }
   img {
-    margin: auto;
     height: 340px;
     display: block;
     padding: 10px 96px;

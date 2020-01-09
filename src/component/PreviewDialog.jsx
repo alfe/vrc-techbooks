@@ -23,7 +23,7 @@ const PreviewDialog = ({ file, menu, onSubmit }) => {
     <React.Fragment>
       <Button
         variant="contained" color="primary" 
-        disabled={!file.name || !menu.name}
+        disabled={!file.name && !menu.name}
         onClick={() => setOpen(true)}>
         プレビュー
       </Button>
@@ -87,8 +87,9 @@ const Thing = ({ file, menu }) => {
   const [fileRead, settexture] = React.useState();
   const [menuRead, setMenutexture] = React.useState();
 
-  getFileTexture(file, settexture)
-  getFileTexture(menu, setMenutexture)
+  console.log(file,menu)
+  if (Object.keys(file).length !== 0) getFileTexture(file, settexture)
+  if (Object.keys(menu).length !== 0) getFileTexture(menu, setMenutexture)
   const texture = new THREE.TextureLoader().load(fileRead);
   const menuTexture = new THREE.TextureLoader().load(menuRead);
 

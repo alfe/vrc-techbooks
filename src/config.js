@@ -22,7 +22,7 @@ export const providerTwitter = (successCallback, errorCallback) => {
     const db = firebase.firestore();
     const usersCollectionRef = db.collection('users').doc(username.toLowerCase());
     const setUserCollection = async () => {
-      await usersCollectionRef.set({ displayName, photoURL, uid }, { merge: true });
+      await usersCollectionRef.set({ photoURL, uid }, { merge: true });
       if (successCallback) successCallback();
     };
     usersCollectionRef.get().then((doc) => {
