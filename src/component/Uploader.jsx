@@ -1,5 +1,5 @@
 import React from 'react'
-import { providerTwitter, updateStore, uploadStorage, getUserData, createUserData } from '../config';
+import { providerTwitter, updateStore, uploadStorage, getUserData, createUserData, setDatas } from '../config';
 // import PreviewDialog from './PreviewDialog'
 import LoginGate from './LoginGate'
 import Button from '@material-ui/core/Button';
@@ -22,11 +22,11 @@ const Uploader = React.memo(() => {
 });
 // eslint-disable-next-line no-unused-vars
 const AddUser = () => {
-  const createUser = () => { // displayName, twitter
-    createUserData('wata_pj', 'allkavt');
+  const addData = () => {
+    // createUserData('Niko_14', 'himazin917', 309900);// displayName, twitter    
   }
   return (
-    <button onClick={createUser}>add</button>
+    <button onClick={addData}>add</button>
   )
 }
 

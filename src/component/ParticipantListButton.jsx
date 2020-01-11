@@ -16,10 +16,10 @@ const JoinButton = React.memo(() => {
   return (
     <React.Fragment>
       <Button onClick={() => {setOpen(true); getUserList(setlist)}}>
-        出展者一覧<span className="small">  (12/08現在)</span>
+        出展者一覧<span className="small">  (1/10現在)</span>
       </Button>
       <Dialog fullWidth maxWidth="sm" onClose={() => setOpen(false)} aria-labelledby="participant-list" open={open}>
-        <DialogTitle id="participant-list">出展者一覧 (12/08現在)</DialogTitle>
+        <DialogTitle id="participant-list">出展者一覧 (1/10現在)</DialogTitle>
         <List>
           {list.map((user, i) => (
             <ListItem key={`user-${i}`}>

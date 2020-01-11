@@ -5,9 +5,9 @@ import twitterLogo from './twitter-icon.svg';
 
 const WorldAlias = React.memo(() => {
   const [list, setlist] = React.useState([]);
-  const [rotate, setRotate] = React.useState(9);
+  const [rotate, setRotate] = React.useState(360/42);
   const [height, setHeight] = React.useState(42);
-  const [selected, setSelect] = React.useState(23);
+  const [selected, setSelect] = React.useState(0);
   const [genre, setGenre] = React.useState([]);
   const setMatchGenre = (gen) => {
     if (genre.includes(gen)) {
@@ -193,6 +193,7 @@ const BoothDetail = ({ data={} }) => {
           <div>
             <img src={data.photoURL || "/default-user-icon.png"} alt={`${data.displayName}'s icon`} />
             <span>{data.displayName}</span>
+            <BoothNo place={data.place}>{data.boothNo}</BoothNo>
           </div>
           <a href={`https://twitter.com/${data.twitterId}`} alt="twitter"
             target="_blank" rel="noopener noreferrer">
@@ -208,6 +209,20 @@ const BoothDetail = ({ data={} }) => {
     </BoothBlock>
   );
 }
+
+const BoothNo = styled.div`
+  && {
+    width: 3rem;
+    height: 1.5rem;
+    line-height: 1.8;
+    border-radius: 3px;
+    background: ${p => getPlaceColor(p.place)};
+    color: #FFFFFF;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 0 1rem;
+  }
+`;
 const ShopLinkButton = styled.a`
   && {
     text-decoration: none;

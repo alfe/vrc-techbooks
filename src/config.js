@@ -67,12 +67,13 @@ export const getUserList = async (successCallback) => {
   });
 };
 
-export const createUserData = async (displayName, twitter) => {
+export const createUserData = async (displayName, twitter, place) => {
   const db = firebase.firestore();
   const twitterId = twitter.toLowerCase()
   const usersCollectionRef = db.collection('users').doc(twitterId).set({
     twitterId,
     displayName,
+    place,
     isExhibitor: true,
   })
   .then(function() {
