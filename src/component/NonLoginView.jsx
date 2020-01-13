@@ -3,13 +3,13 @@ import styled from 'styled-components'
 import { Canvas, useFrame } from 'react-three-fiber'
 import * as THREE from 'three'
 import logo from './logo.svg';
-import RecruitText from './RecruitText'
-import ParticipantListButton from './ParticipantListButton'
-import JoinButton from './JoinButton'
+// import RecruitText from './RecruitText'
+// import ParticipantListButton from './ParticipantListButton'
+// import JoinButton from './JoinButton'
 import '../App.css';
 
 const NonLoginView = ({ onClick }) => (
-  <header className="App-header">
+  <NonLiginViewArea>
     {/* <LoginButton /> */}
     <Canvas className="App-canvas" >
       <Thing />
@@ -17,23 +17,39 @@ const NonLoginView = ({ onClick }) => (
     <InfoArea>
       <h1>VRC技術市</h1>
       <DaysArea>
-        <p><DaysLabel>申込締切：</DaysLabel>　2020年　1月13日(月・祝)</p>
-        <p><DaysLabel>開催日：</DaysLabel>　2020年　2月15日(土)・16日(日)</p>
-        <br />
+        {/* <p><DaysLabel>申込締切：</DaysLabel>　2020年　1月13日(月・祝)</p> */}
+        {/* <p><DaysLabel>開催日：</DaysLabel>　2020年　2月15日(土)・16日(日)</p> */}
+        {/* <br /> */}
+        2020<span>年 </span>
+        2<span>月</span>
+        15<span>日(土)・</span>
+        16<span>日(日)</span>
       </DaysArea>
       <Flex>
-        <ParticipantListButton />
-        <JoinButton />
+        {/* <ParticipantListButton /> */}
+        {/* <JoinButton /> */}
       </Flex>
-      <h2>VRChat技術者へ、 お願いがあります。</h2>
-      <RecruitText />
+      {/* <h2>VRChat技術者へ、 お願いがあります。</h2> */}
+      {/* <RecruitText /> */}
     </InfoArea>
-  </header>
+  </NonLiginViewArea>
 )
 export default NonLoginView;
 
-const isMobile = window.outerWidth < 800
+const isMobile = window.outerWidth < 800;
 
+const NonLiginViewArea = styled.div`
+  && {
+    background-color: #282c34;
+    min-height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+`;
 const InfoArea = styled.div`
   h1 {
     font-size: ${isMobile ? '3rem' : '5rem'};
@@ -47,7 +63,9 @@ const InfoArea = styled.div`
 const DaysArea = styled.div`
   &&{ 
     width: ${isMobile ? '16rem' : '28rem;'}
-    margin: -2rem auto 2rem;
+    margin: -3rem auto 2rem;
+    font-size: 1.3em;
+    font-family: monospace;
   }
   p {
     font-size: 0.7em;
@@ -55,11 +73,15 @@ const DaysArea = styled.div`
     text-align: left;
     color: #AAA;
   }
+  span {
+    font-size: 0.7em;
+    color: #AAA;
+  }
 `;
-const DaysLabel = styled.span`
-  width: 5em;
-  display: inline-block;
-`;
+// const DaysLabel = styled.span`
+//   width: 5em;
+//   display: inline-block;
+// `;
 const Flex = styled.div`
   && {
     width: ${isMobile ? '100vw' : '80vw;'}

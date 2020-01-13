@@ -1,5 +1,5 @@
 import React from 'react'
-import { providerTwitter, updateStore, uploadStorage, getUserData, createUserData, setDatas } from '../config';
+import { providerTwitter, updateStore, uploadStorage, getUserData, } from '../config';
 // import PreviewDialog from './PreviewDialog'
 import LoginGate from './LoginGate'
 import Button from '@material-ui/core/Button';
@@ -11,6 +11,15 @@ const Uploader = React.memo(() => {
   if (!user) {
     getUserData().then(user => {
       console.info(user)
+      sessionStorage.setItem('PosterSubmittedAt', user.PosterSubmittedAt);
+      sessionStorage.setItem('MenuSubmittedAt', user.MenuSubmittedAt);
+      sessionStorage.setItem('PDFSubmittedAt', user.PDFSubmittedAt);
+      sessionStorage.setItem('PDF2SubmittedAt', user.PDF2SubmittedAt);
+      sessionStorage.setItem('PDF3SubmittedAt', user.PDF3SubmittedAt);
+      sessionStorage.setItem('PrefabSubmittedAt', user.PrefabSubmittedAt);
+      sessionStorage.setItem('boothNo', user.boothNo);
+      sessionStorage.setItem('place', user.place);
+      sessionStorage.setItem('totalPages', user.totalPages);
       setUser(user);
     })
   }
@@ -23,7 +32,8 @@ const Uploader = React.memo(() => {
 // eslint-disable-next-line no-unused-vars
 const AddUser = () => {
   const addData = () => {
-    // createUserData('Niko_14', 'himazin917', 309900);// displayName, twitter    
+    // createUserData, setDatas
+    // createUserData('kanonji', 'kanonji', 509901, 'W-10');// displayName, twitter, place, boothNo    
   }
   return (
     <button onClick={addData}>add</button>
@@ -114,6 +124,12 @@ const UploadForm = React.memo(({ userData }) => {
           variant="contained" color="primary" 
           disabled={!prefab.name}
           onClick={prefabSubmit}>送信</Button>
+
+        <FormTitle>見本誌 <Memo>2冊目を出す人用 オプション → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
+        <SampleBookInput num={2} PDFSubmittedAt={userData.PDF2SubmittedAt}/>
+        <FormTitle>見本誌 <Memo>3冊目を出す人用 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
+        <SampleBookInput num={3} PDFSubmittedAt={userData.PDF3SubmittedAt}/>
+
       </FormsArea>
     </UploaderArea>
   )

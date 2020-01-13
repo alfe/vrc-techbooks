@@ -1,14 +1,15 @@
 import React from 'react'
 import { getUserList } from '../config';
 import styled from 'styled-components'
-import twitterLogo from './twitter-icon.svg';
+import BoothDetail from './BoothDetail';
 
 const WorldAlias = React.memo(() => {
   const [list, setlist] = React.useState([]);
-  const [rotate, setRotate] = React.useState(360/42);
+  const [rotate, setRotate] = React.useState(360/43);
   const [height, setHeight] = React.useState(42);
   const [selected, setSelect] = React.useState(0);
   const [genre, setGenre] = React.useState([]);
+  const [zoom, setZoom] = React.useState(false);
   const setMatchGenre = (gen) => {
     if (genre.includes(gen)) {
       const newGenre = genre.filter(n => n !== gen);
@@ -17,6 +18,21 @@ const WorldAlias = React.memo(() => {
       setGenre([...genre, gen])
     }
   };
+  const getlist = () => {
+    const twiIds = list.map(i=>i.twitterId)
+    const a = document.createElement('a');
+    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i=>
+      `https://firebasestorage.googleapis.com/v0/b/vrc-techbooks.appspot.com/o/${i}%2F${i}-menu.png?alt=media`
+      ).join("\r\n"));
+    a.download = 'menu-list.txt';
+    a.click();
+    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i=>
+      `https://firebasestorage.googleapis.com/v0/b/vrc-techbooks.appspot.com/o/${i}%2F${i}-poster.png?alt=media`
+      ).join("\r\n"));
+    a.download = 'poster-list.txt';
+    a.click();
+  }
+
   if (list.length === 0) {
     getUserList(setlist)
   }
@@ -39,11 +55,12 @@ const WorldAlias = React.memo(() => {
           <React.Fragment>
             <input type="number" value={rotate} onChange={e => setRotate(e.target.value)} />
             <input type="number" value={height} onChange={e => setHeight(e.target.value)} />
+            <button onClick={getlist}>getlist</button>
           </React.Fragment>
         )}
         {list.length !== 0 &&
-          <CenterDetail>
-            <BoothDetail data={list[selected]} />
+          <CenterDetail zoom={zoom}>
+            <BoothDetail data={list[selected]} zoom={zoom} setZoom={setZoom} />
           </CenterDetail>
         }
       </WorldAliasCircle>
@@ -79,6 +96,23 @@ const getMatchGenre = (genre, place) => {
     default: return false;
   }
 }
+const getPlaceColor = (place) => {
+  switch (true) {
+    case 500000 < place: return '#7442F4';
+    case 400000 < place: return '#46BDC6';
+    case 300000 < place: return '#34A752';
+    case 200000 < place: return '#FBBC06';
+    case 100000 < place: return '#EA4235';
+    default: return '#26B5FF';
+  }
+}
+const UserIcon = ({ src, place, rotate, height, onHover }) => {
+  return (
+    <UserIconBar rotate={rotate} height={height}>
+      <UserIconImg place={place} rotate={rotate} src={src} onMouseEnter={onHover} />
+    </UserIconBar>
+  );
+}
 
 const GenreList = styled.div`
   && {
@@ -103,7 +137,7 @@ const GenreItem = styled.button`
 `;
 const WorldAliasArea = styled.div`
   && {
-    padding: 3rem;
+    padding: 0 3rem;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -132,33 +166,6 @@ const DetailItem = styled.div`
     margin: 0.75rem 0.5rem;
   }
 `;
-const UserIcon = ({ src, place, rotate, height, onHover }) => {
-  return (
-    <UserIconBar rotate={rotate} height={height}>
-      <UserIconImg place={place} rotate={rotate} src={src} onMouseEnter={onHover} />
-    </UserIconBar>
-  );
-}
-const getPlaceColor = (place) => {
-  switch (true) {
-    case 500000 < place: return '#7442F4';
-    case 400000 < place: return '#46BDC6';
-    case 300000 < place: return '#34A752';
-    case 200000 < place: return '#FBBC06';
-    case 100000 < place: return '#EA4235';
-    default: return '#26B5FF';
-  }
-}
-const getPlaceName = (place) => {
-  switch (true) {
-    case 500000 < place: return 'WORLD';
-    case 400000 < place: return 'GIMMIC';
-    case 300000 < place: return 'SHADER';
-    case 200000 < place: return 'TOOL';
-    case 100000 < place: return 'AVATER';
-    default: return 'OFFICIAL';
-  }
-}
 const UserIconBar = styled.div`
   && {
     height: ${p=>p.height}rem;
@@ -182,148 +189,13 @@ const UserIconImg = styled.img`
   }
 `;
 
-const BoothDetail = ({ data={} }) => {
-  const getImgUrl = (type) =>
-    `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${data.twitterId}%2F${data.twitterId}-${type}.png?alt=media`
-  return (
-    <BoothBlock>
-      <BoothTag place={data.place}>{getPlaceName(data.place)}</BoothTag>
-      <div>
-        <UserInfoArea>
-          <div>
-            <img src={data.photoURL || "/default-user-icon.png"} alt={`${data.displayName}'s icon`} />
-            <span>{data.displayName}</span>
-            <BoothNo place={data.place}>{data.boothNo}</BoothNo>
-          </div>
-          <a href={`https://twitter.com/${data.twitterId}`} alt="twitter"
-            target="_blank" rel="noopener noreferrer">
-            <img src={twitterLogo} alt={`@{data.twitterId}`} />
-          </a>
-        </UserInfoArea>
-        <BoothImageArea>
-          <img src={!data.PosterSubmittedAt ? '/null-poster.png' : getImgUrl('poster')} alt="poster" />
-          <img src={!data.MenuSubmittedAt ? '/null-menu.png' : getImgUrl('menu')} alt="menu" />
-        </BoothImageArea>
-        <ShopLinkButton href={data.boothURL || ''} alt="頒布場所">頒布場所</ShopLinkButton>
-      </div>
-    </BoothBlock>
-  );
-}
-
-const BoothNo = styled.div`
-  && {
-    width: 3rem;
-    height: 1.5rem;
-    line-height: 1.8;
-    border-radius: 3px;
-    background: ${p => getPlaceColor(p.place)};
-    color: #FFFFFF;
-    font-size: 0.8em;
-    font-weight: bold;
-    margin: 0 1rem;
-  }
-`;
-const ShopLinkButton = styled.a`
-  && {
-    text-decoration: none;
-    padding: .5rem;
-    margin: 0 1rem;
-    border-radius: 3px;
-    background: #333;
-    color: #FFFFFF;
-    font-weight: bold;
-    box-shadow: 2px 2px 4px #333;
-  }
-  &&:hover {
-    background: #282C34;
-    transform: translate(1px, 1px);
-    box-shadow: none;
-  }
-`;
 const CenterDetail = styled.div`
   && {
     position: absolute;
     left: calc(50% - 16.7rem);
-    top: 15rem;
+    top: ${p => p.zoom ? '1.5rem' : '15rem' };
     border-radius: 8px;
     box-shadow: 2px 2px 8px #999999;
-  }
-`;
-const BoothBlock = styled.div`
-  && {
-    display: flex;
-    width: 33.6rem;
-    height: 20rem;
-    background: #FFFFFF;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  && > div:last-of-type {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-`;
-const BoothTag = styled.div`
-  width: 1.4rem;
-  writing-mode: vertical-rl;
-  transform: scale(-1);
-  font-weight: bold;
-  color: #FFFFFF;
-  background: ${p => getPlaceColor(p.place)};
-`;
-const UserInfoArea = styled.div`
-  && {
-    display: flex;
-    padding: 0 1rem;
-    align-items: center;
-    justify-content: space-between;
-    height: 48px;
-  }
-  && > div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  && > div > img {
-    border-radius: 50%;
-  }
-  && > div > span {
-    font-size: 1.2em;
-    margin-left: 1rem;
-    font-weight: bold;
-  }
-  && > a {
-    margin: 0.5rem 0.5rem 0;
-    text-decoration: underline;
-  }
-  && > a > img {
-    height: 2.5rem;
-    width: 2.5rem;
-  }
-  && > a > img:hover {
-    height: 2.5rem;
-    width: 2.5rem;
-    transform: translate(1px, 1px);
-  }
-`;
-
-const BoothImageArea = styled.div`
-  && {
-    display: flex;
-    padding: .5rem;
-    height: 200px;
-    background: #FFFFFF;
-  }
-  && img {
-    object-fit: contain;
-  }
-  && img:first-of-type {
-    width: 8.75rem;
-  }
-  && img:last-of-type {
-    width: 22rem;
-    padding-left: .5rem;
+    zoom: ${p => p.zoom ? 2 : 1 };
   }
 `;
