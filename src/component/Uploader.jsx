@@ -1,5 +1,5 @@
 import React from 'react'
-import { providerTwitter, updateStore, uploadStorage, getUserData, } from '../config';
+import { providerTwitter, updateStore, uploadStorage, getUserData, createUserData } from '../config';
 // import PreviewDialog from './PreviewDialog'
 import LoginGate from './LoginGate'
 import Button from '@material-ui/core/Button';
@@ -11,15 +11,17 @@ const Uploader = React.memo(() => {
   if (!user) {
     getUserData().then(user => {
       console.info(user)
-      sessionStorage.setItem('PosterSubmittedAt', user.PosterSubmittedAt);
-      sessionStorage.setItem('MenuSubmittedAt', user.MenuSubmittedAt);
-      sessionStorage.setItem('PDFSubmittedAt', user.PDFSubmittedAt);
-      sessionStorage.setItem('PDF2SubmittedAt', user.PDF2SubmittedAt);
-      sessionStorage.setItem('PDF3SubmittedAt', user.PDF3SubmittedAt);
-      sessionStorage.setItem('PrefabSubmittedAt', user.PrefabSubmittedAt);
-      sessionStorage.setItem('boothNo', user.boothNo);
-      sessionStorage.setItem('place', user.place);
-      sessionStorage.setItem('totalPages', user.totalPages);
+      if (user) {
+        sessionStorage.setItem('PosterSubmittedAt', user.PosterSubmittedAt);
+        sessionStorage.setItem('MenuSubmittedAt', user.MenuSubmittedAt);
+        sessionStorage.setItem('PDFSubmittedAt', user.PDFSubmittedAt);
+        sessionStorage.setItem('PDF2SubmittedAt', user.PDF2SubmittedAt);
+        sessionStorage.setItem('PDF3SubmittedAt', user.PDF3SubmittedAt);
+        sessionStorage.setItem('PrefabSubmittedAt', user.PrefabSubmittedAt);
+        sessionStorage.setItem('boothNo', user.boothNo);
+        sessionStorage.setItem('place', user.place);
+        sessionStorage.setItem('totalPages', user.totalPages);
+      }
       setUser(user);
     })
   }
@@ -33,7 +35,7 @@ const Uploader = React.memo(() => {
 const AddUser = () => {
   const addData = () => {
     // createUserData, setDatas
-    // createUserData('kanonji', 'kanonji', 509901, 'W-10');// displayName, twitter, place, boothNo    
+    createUserData('suna', 'suna_vrc', 409900, 'T-9');// displayName, twitter, place, boothNo    
   }
   return (
     <button onClick={addData}>add</button>
@@ -88,15 +90,8 @@ const UploadForm = React.memo(({ userData }) => {
       <FormsArea>
         {/* <AddUser /> */}
         <UserName />
-        <FormTitle>見本誌 <Memo>*必須 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
+        <FormTitle>見本誌 <Memo>*必須 → 1/26一次受付  ◆  2/8締切</Memo></FormTitle>
         <SampleBookInput PDFSubmittedAt={userData.PDFSubmittedAt}/>
-
-        <FormTitle>お品書き <Memo>*必須 → 1/26一次受付  ◆  2/8締切</Memo></FormTitle>
-        <MenuInput uploaded={uploadedMenu} menu={menu} onChange={file => setmenu(file)} />
-        <Button width="149px"
-          variant="contained" color="primary" 
-          disabled={!menu.name}
-          onClick={menuSubmit}>送信</Button>
 
         <FormTitle>頒布場所 <Memo>*必須 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
         <TextInput
@@ -108,6 +103,13 @@ const UploadForm = React.memo(({ userData }) => {
           variant="contained" color="primary" 
           disabled={(boothURL === '' || boothURL === userData.boothURL)}
           onClick={boothUrlSubmit}>送信</Button>
+
+        <FormTitle>お品書き <Memo>*必須 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
+        <MenuInput uploaded={uploadedMenu} menu={menu} onChange={file => setmenu(file)} />
+        <Button width="149px"
+          variant="contained" color="primary" 
+          disabled={!menu.name}
+          onClick={menuSubmit}>送信</Button>
 
         <FormTitle>ポスター<Memo>オプション → 1/17 一次受付  ◆  2/8締切</Memo></FormTitle>
         <p style={{ fontSize: '.8em', marginTop: '-1em' }}>（ポスターの設定をせず見本誌をアップロードすると、1ページ目がポスターとして使用されます）</p>

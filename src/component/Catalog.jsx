@@ -32,7 +32,6 @@ const WorldAlias = React.memo(() => {
     a.download = 'poster-list.txt';
     a.click();
   }
-
   if (list.length === 0) {
     getUserList(setlist)
   }
@@ -114,12 +113,14 @@ const UserIcon = ({ src, place, rotate, height, onHover }) => {
   );
 }
 
+const isMobile = window.outerWidth < 800;
 const GenreList = styled.div`
   && {
     flex: 100%;
-    display: flex;
+    display: block;
     align-item: center;
     justify-content: center;
+    flex-wrap: wrap;
     margin-top: 3rem;
   }
 `;
@@ -137,7 +138,6 @@ const GenreItem = styled.button`
 `;
 const WorldAliasArea = styled.div`
   && {
-    padding: 0 3rem;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -151,6 +151,9 @@ const WorldAliasCircle = styled.div`
     width: 50rem;
     height: 50rem;
     box-shadow: 0 0 8px #FFFFFF, 0 0 16px #FFFFFF;
+    ${!isMobile ? '' : `
+    zoom: ${window.outerWidth/900};
+    `}
   }
 `;
 const DetailList = styled.div`
@@ -159,6 +162,9 @@ const DetailList = styled.div`
     margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
+    ${!isMobile ? '' : `
+    zoom: ${window.outerWidth/640};
+    `}
   }
 `;
 const DetailItem = styled.div`

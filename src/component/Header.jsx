@@ -20,9 +20,10 @@ const Header = () => {
 
 export default Header;
 
+const isMobile = window.outerWidth < 425;
 const HeaderItem = styled.a`
   && {
-    font-size: 1.5rem;
+    font-size: ${isMobile ? '1rem' : '1.5rem'};
     text-decoration: none;
     padding: .5rem 1.5rem;
     margin: .5rem;

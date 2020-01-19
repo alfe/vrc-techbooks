@@ -44,6 +44,7 @@ const readFileAsync = async (file) => {
 };
 const renderToPreview = async (fileData, canvasRef, pageNum = 1) => {
   const pdf = await pdfjsLib.getDocument({ data: fileData, cMapUrl: '/cmaps/', cMapPacked: true }).promise
+  if (pdf.numPages < pageNum) return;
   const page = await pdf.getPage(pageNum)
   const canvas = canvasRef.current
   await page.render({
@@ -198,6 +199,7 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt }) => {
           <canvas height="842" width="595" ref={page3Ref} />
         </CanvasBox>)}
         {pdfFile && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(595×842)]</label>}
+        {!pdfFile && PDFSubmittedAt && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(595×842)]</label>}
         <Button disabled={!pdfFile} variant="contained" color="primary" onClick={onClickOpenUploadDialog}>
           アップロード
         </Button>

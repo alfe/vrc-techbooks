@@ -54,8 +54,9 @@ const BoothDetail = ({ data={}, zoom, setZoom }) => {
 const BoothNo = styled.div`
   && {
     width: 3rem;
-    height: 1.5rem;
-    line-height: 1.8;
+    height: inherit;
+    padding: .5em;
+    line-height: 1;
     border-radius: 3px;
     background: ${p => getPlaceColor(p.place)};
     color: #FFFFFF;
