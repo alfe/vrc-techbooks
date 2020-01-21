@@ -97,8 +97,8 @@ const renderMainToCanvas = async (fileData, num, canvasRef, setTotalPages, setPa
         uploadImage({ canvas, num, page: page/2, successCallback: () => {
           renderAndUpload(page + 2)
         }})
-      }, 1000);
-    }, 500);
+      }, 2000);
+    }, 1000);
   }
   setTotalPages(pdf.numPages)
   renderAndUpload(2)
@@ -134,7 +134,7 @@ const uploadImage = ({ canvas, num, page, successCallback }) => {
   uploadStorage(imageFile, imageName, successCallback)
 }
 
-export const SampleBookInput = ({ num='', PDFSubmittedAt }) => {
+export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
   const [pdfFile, setPdf] = React.useState(false)
   const [open, setOpen] = React.useState(false)
   const [modal, setModal] = React.useState(false)
@@ -169,6 +169,13 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt }) => {
       setPage(0)
     })
   }
+  const getimgurlList = () => {
+    const resultlist = [];
+    for (let index = 1; index < Math.ceil((uploadedPages - 1)/2 + 1); index++) {
+      resultlist.push(`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-${index}.png?alt=media`)
+    }
+    return resultlist;
+  }
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -183,12 +190,9 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt }) => {
         {!pdfFile && PDFSubmittedAt && (
           <CanvasBox>
             <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-cover.png?alt=media`} alt="cover.png"/>
-            <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-1.png?alt=media`} alt="1.png"/>
-            <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-2.png?alt=media`} alt="2.png"/>
-            <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-3.png?alt=media`} alt="3.png"/>
-            <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-4.png?alt=media`} alt="4.png"/>
-            <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-5.png?alt=media`} alt="5.png"/>
-            <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-6.png?alt=media`} alt="6.png"/>
+            {getimgurlList().map((url, i) => (
+              <img key={`imgurl-${url}`} src={url} alt={`${i}.png`}/>
+            ))}
           </CanvasBox>
         )}
 

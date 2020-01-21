@@ -91,7 +91,7 @@ const UploadForm = React.memo(({ userData }) => {
         {/* <AddUser /> */}
         <UserName />
         <FormTitle>見本誌 <Memo>*必須 → 1/26一次受付  ◆  2/8締切</Memo></FormTitle>
-        <SampleBookInput PDFSubmittedAt={userData.PDFSubmittedAt}/>
+        <SampleBookInput PDFSubmittedAt={userData.PDFSubmittedAt} uploadedPages={userData.totalPages}/>
 
         <FormTitle>頒布場所 <Memo>*必須 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
         <TextInput
@@ -128,9 +128,9 @@ const UploadForm = React.memo(({ userData }) => {
           onClick={prefabSubmit}>送信</Button>
 
         <FormTitle>見本誌 <Memo>2冊目を出す人用 オプション → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
-        <SampleBookInput num={2} PDFSubmittedAt={userData.PDF2SubmittedAt}/>
+        <SampleBookInput num={2} PDFSubmittedAt={userData.PDF2SubmittedAt} uploadedPages={userData.totalPages2}/>
         <FormTitle>見本誌 <Memo>3冊目を出す人用 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
-        <SampleBookInput num={3} PDFSubmittedAt={userData.PDF3SubmittedAt}/>
+        <SampleBookInput num={3} PDFSubmittedAt={userData.PDF3SubmittedAt} uploadedPages={userData.totalPages3}/>
 
       </FormsArea>
     </UploaderArea>
