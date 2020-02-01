@@ -5,7 +5,7 @@ import BoothDetail from './BoothDetail';
 
 const WorldAlias = React.memo(() => {
   const [list, setlist] = React.useState([]);
-  const [rotate, setRotate] = React.useState(360/43);
+  const [rotate, setRotate] = React.useState(360/42);
   const [height, setHeight] = React.useState(42);
   const [selected, setSelect] = React.useState(0);
   const [genre, setGenre] = React.useState([]);
@@ -65,11 +65,11 @@ const WorldAlias = React.memo(() => {
       </WorldAliasCircle>
 
       <GenreList>
-        <GenreItem color='#EA4235' selected={genre.includes('avater')} onClick={() => setMatchGenre('avater')}>avater</GenreItem>
-        <GenreItem color='#FBBC06' selected={genre.includes('tool')} onClick={() => setMatchGenre('tool')}>tool</GenreItem>
-        <GenreItem color='#34A752' selected={genre.includes('shader')} onClick={() => setMatchGenre('shader')}>shader</GenreItem>
-        <GenreItem color='#46BDC6' selected={genre.includes('gimmic')} onClick={() => setMatchGenre('gimmic')}>gimmic</GenreItem>
-        <GenreItem color='#7442F4' selected={genre.includes('world')} onClick={() => setMatchGenre('world')}>world</GenreItem>
+        <GenreItem color='#EA4235' selected={genre.includes('avater')} onClick={() => setMatchGenre('avater')}>AVATER</GenreItem>
+        <GenreItem color='#FBBC06' selected={genre.includes('tool')} onClick={() => setMatchGenre('tool')}>TOOL</GenreItem>
+        <GenreItem color='#34A752' selected={genre.includes('shader')} onClick={() => setMatchGenre('shader')}>SHADER</GenreItem>
+        <GenreItem color='#46BDC6' selected={genre.includes('gimmick')} onClick={() => setMatchGenre('gimmick')}>GIMMICK</GenreItem>
+        <GenreItem color='#7442F4' selected={genre.includes('world')} onClick={() => setMatchGenre('world')}>WORLD</GenreItem>
       </GenreList>
 
       <DetailList>
@@ -88,7 +88,7 @@ const getMatchGenre = (genre, place) => {
   if (genre.length === 0) return true;
   switch (true) {
     case 500000 < place: return genre.includes('world');
-    case 400000 < place: return genre.includes('gimmic');
+    case 400000 < place: return genre.includes('gimmick');
     case 300000 < place: return genre.includes('shader');
     case 200000 < place: return genre.includes('tool');
     case 100000 < place: return genre.includes('avater');

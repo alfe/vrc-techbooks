@@ -15,7 +15,7 @@ const getPlaceColor = (place) => {
 const getPlaceName = (place) => {
   switch (true) {
     case 500000 < place: return 'WORLD';
-    case 400000 < place: return 'GIMMIC';
+    case 400000 < place: return 'GIMMICK';
     case 300000 < place: return 'SHADER';
     case 200000 < place: return 'TOOL';
     case 100000 < place: return 'AVATER';
