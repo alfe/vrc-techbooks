@@ -49,7 +49,7 @@ const renderToPreview = async (fileData, canvasRef, pageNum = 1) => {
   const canvas = canvasRef.current
   await page.render({
     canvasContext: canvas.getContext('2d'),
-    viewport: page.getViewport({ scale: 1 }),
+    viewport: page.getViewport({ scale: 2 }),
     transform: [1, 0, 0, 1, 0, 0],
   }).promise
 }
@@ -62,7 +62,7 @@ const renderCoverToCanvas = async (fileData, canvasRef, num) => {
   const canvas = canvasRef.current
   await page.render({
     canvasContext: canvas.getContext('2d'),
-    viewport: page.getViewport({ scale: 1 }),
+    viewport: page.getViewport({ scale: 2 }),
     transform: [1, 0, 0, 1, 0, 0],
   }).promise
   uploadImage({ canvas, num, page: 'cover' })
@@ -97,8 +97,8 @@ const renderMainToCanvas = async (fileData, num, canvasRef, setTotalPages, setPa
         uploadImage({ canvas, num, page: page/2, successCallback: () => {
           renderAndUpload(page + 2)
         }})
-      }, 2000);
-    }, 1000);
+      }, 1500);
+    }, 1500);
   }
   setTotalPages(pdf.numPages)
   renderAndUpload(2)
@@ -108,11 +108,11 @@ const renderMainToCanvas = async (fileData, num, canvasRef, setTotalPages, setPa
 const renderPageToCanvas = async (pdf, pageNum, canvasRef, canvasContext, isRight) => {
   if (pageNum > pdf.numPages) return
   const page = await pdf.getPage(pageNum)
-  const viewport = page.getViewport({ scale: 1 })
+  const viewport = page.getViewport({ scale: 2 })
   return await page.render({
     canvasContext,
     viewport,
-    transform: [1, 0, 0, 1, isRight ? 595 : 0, 0],
+    transform: [1, 0, 0, 1, isRight ? 1240 : 0, 0],
     background: isRight ? 'transparent' : '#FFFFFF',
   }).promise
 }
@@ -124,12 +124,13 @@ const uploadImage = ({ canvas, num, page, successCallback }) => {
   const tmp = base64.split(',')
   const data = atob(tmp[1])
   const mime = tmp[0].split(':')[1].split(';')[0]
-  const buf = new Uint8Array(data.length)
+  const buf = new Uint8Array(data.length);
+  const username = sessionStorage.getItem('username');
   for (let i = 0; i < data.length; i++) {
     buf[i] = data.charCodeAt(i)
   }
   const blob = new Blob([buf], { type: mime })
-  const imageName = `${sessionStorage.getItem('username')}${!num?'':`-${num}`}-${page}.png`
+  const imageName = `${username}${!num?'':`-${num}`}-${page}.png`
   const imageFile = new File([blob], imageName, { lastModified: new Date().getTime() })
   uploadStorage(imageFile, imageName, successCallback)
 }
@@ -145,6 +146,7 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
   const page3Ref = React.useRef(null)
   const coverRef = React.useRef(null)
   const canvasRef = React.useRef(null)
+  const username = sessionStorage.getItem('username');
 
   const onChangeBook = async (e) => {
     if (!e.target.files[0]) return
@@ -161,7 +163,7 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
   }
   const onSubmitToUpload = () => {
     setModal(true)
-    uploadStorage(pdfFile, `${sessionStorage.getItem('username')}${!num ? '' : `-${num}` }.pdf`)
+    uploadStorage(pdfFile, `${username}${!num ? '' : `-${num}` }.pdf`)
     renderCoverToCanvas(pdfFile, coverRef, num)
     renderMainToCanvas(pdfFile, num, canvasRef, setTotalPages, setPage, () => {
       setOpen(false)
@@ -186,7 +188,7 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
           type="file"
           accept="application/pdf"
           onChange={onChangeBook} />
-        {!pdfFile && !PDFSubmittedAt && <label htmlFor={`samplebook${num}`}>PDF: A4(595×842)</label>}
+        {!pdfFile && !PDFSubmittedAt && <label htmlFor={`samplebook${num}`}>PDF: A4(297 x 210)</label>}
         {!pdfFile && PDFSubmittedAt && (
           <CanvasBox>
             <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-cover.png?alt=media`} alt="cover.png"/>
@@ -198,12 +200,12 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
 
         {pdfFile && (
         <CanvasBox>
-          <canvas height="842" width="595" ref={page1Ref} />
-          <canvas height="842" width="595" ref={page2Ref} />
-          <canvas height="842" width="595" ref={page3Ref} />
+          <canvas height="1754" width="1240" ref={page1Ref} />
+          <canvas height="1754" width="1240" ref={page2Ref} />
+          <canvas height="1754" width="1240" ref={page3Ref} />
         </CanvasBox>)}
-        {pdfFile && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(595×842)]</label>}
-        {!pdfFile && PDFSubmittedAt && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(595×842)]</label>}
+        {pdfFile && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(1240×1754)]</label>}
+        {!pdfFile && PDFSubmittedAt && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(1240×1754)]</label>}
         <Button disabled={!pdfFile} variant="contained" color="primary" onClick={onClickOpenUploadDialog}>
           アップロード
         </Button>
@@ -221,8 +223,8 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
             見本誌をVRCで表示できる形式に変換してアップロードします
           </DialogContentText>
           <CanvasBox>
-            <canvas id="preview-cover-pdf" height="842" width="595" ref={coverRef} />
-            <canvas id="preview-pdf" height="842" width="1190" ref={canvasRef} />
+            <canvas id="preview-cover-pdf" height="1754" width="1240" ref={coverRef} />
+            <canvas id="preview-pdf" height="1754" width="2480" ref={canvasRef} />
           </CanvasBox>
         </DialogContent>
         <DialogActions>
@@ -294,17 +296,17 @@ const BoxInput = styled.div`
 `;
 const CanvasBox = styled.div`
   && {
-    zoom: 0.5;
+    zoom: 0.3;
     display: flex;
     overflow-x: auto;
   }
   && > canvas {
-    height: 842px;
-    width: 595px;
+    height: 1754px;
+    width: 1240px;
   }
   #preview-pdf {
-    height: 842px;
-    width: 1190px;
+    height: 1754px;
+    width: 2480px;
     border-left: 2px solid #aaa;
   }
   img {
