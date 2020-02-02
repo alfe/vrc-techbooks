@@ -32,7 +32,7 @@ const BoothDetail = ({ data={}, zoom, setZoom }) => {
       <div>
         <UserInfoArea>
           <div>
-            <img src={data.photoURL || "/default-user-icon.png"} alt={`${data.displayName}'s icon`} />
+            <img src={data.photoURL || "/default-user-icon.png"} alt="icon" />
             <span>{data.displayName}</span>
             <BoothNo place={data.place}>{data.boothNo}</BoothNo>
           </div>

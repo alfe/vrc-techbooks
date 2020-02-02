@@ -2,6 +2,7 @@ import React from 'react'
 import { getUserList } from '../config';
 import styled from 'styled-components'
 import BoothDetail from './BoothDetail';
+import CatalogGenreList from './CatalogGenreList';
 
 const WorldAlias = React.memo(() => {
   const [list, setlist] = React.useState([]);
@@ -21,13 +22,13 @@ const WorldAlias = React.memo(() => {
   const getlist = () => {
     const twiIds = list.map(i=>i.twitterId)
     const a = document.createElement('a');
-    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i=>
-      `https://firebasestorage.googleapis.com/v0/b/vrc-techbooks.appspot.com/o/${i}%2F${i}-menu.png?alt=media`
+    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i =>
+      `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${i}%2F${i}-menu.png?alt=media`
       ).join("\r\n"));
     a.download = 'menu-list.txt';
     a.click();
-    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i=>
-      `https://firebasestorage.googleapis.com/v0/b/vrc-techbooks.appspot.com/o/${i}%2F${i}-poster.png?alt=media`
+    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i =>
+      `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${i}%2F${i}-poster.png?alt=media`
       ).join("\r\n"));
     a.download = 'poster-list.txt';
     a.click();
@@ -64,14 +65,7 @@ const WorldAlias = React.memo(() => {
         }
       </WorldAliasCircle>
 
-      <GenreList>
-        <GenreItem color='#EA4235' selected={genre.includes('avater')} onClick={() => setMatchGenre('avater')}>AVATER</GenreItem>
-        <GenreItem color='#FBBC06' selected={genre.includes('tool')} onClick={() => setMatchGenre('tool')}>TOOL</GenreItem>
-        <GenreItem color='#34A752' selected={genre.includes('shader')} onClick={() => setMatchGenre('shader')}>SHADER</GenreItem>
-        <GenreItem color='#46BDC6' selected={genre.includes('gimmick')} onClick={() => setMatchGenre('gimmick')}>GIMMICK</GenreItem>
-        <GenreItem color='#7442F4' selected={genre.includes('world')} onClick={() => setMatchGenre('world')}>WORLD</GenreItem>
-      </GenreList>
-
+      <CatalogGenreList genre={genre} setMatchGenre={setMatchGenre} />
       <DetailList>
         {list.filter(user => getMatchGenre(genre, user.place)).map((user, i) => (
           <DetailItem key={`detail-${user.twitterId}`}>
@@ -114,28 +108,6 @@ const UserIcon = ({ src, place, rotate, height, onHover }) => {
 }
 
 const isMobile = window.outerWidth < 800;
-const GenreList = styled.div`
-  && {
-    flex: 100%;
-    display: block;
-    align-item: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 3rem;
-  }
-`;
-const GenreItem = styled.button`
-  && {
-    cursor: pointer;
-    border: 2px solid ${p => p.color};
-    border-radius: 8px;
-    background: ${p => p.selected ? p.color : 'transparent'};
-    color: ${p => p.selected ? '#FFFFFF' : p.color};
-    font-size: 1.5rem;
-    padding: .5rem 2rem;
-    margin: 0 .5rem;
-  }
-`;
 const WorldAliasArea = styled.div`
   && {
     display: flex;

@@ -3,34 +3,23 @@ import styled from 'styled-components'
 import { Canvas, useFrame } from 'react-three-fiber'
 import * as THREE from 'three'
 import logo from './logo.svg';
-// import RecruitText from './RecruitText'
-// import ParticipantListButton from './ParticipantListButton'
-// import JoinButton from './JoinButton'
 import '../App.css';
 
 const NonLoginView = ({ onClick }) => (
   <NonLiginViewArea>
-    {/* <LoginButton /> */}
     <Canvas className="App-canvas" >
       <Thing />
     </Canvas>
     <InfoArea>
       <h1>VRC技術市</h1>
       <DaysArea>
-        {/* <p><DaysLabel>申込締切：</DaysLabel>　2020年　1月13日(月・祝)</p> */}
-        {/* <p><DaysLabel>開催日：</DaysLabel>　2020年　2月15日(土)・16日(日)</p> */}
-        {/* <br /> */}
         2020<span>年 </span>
         2<span>月</span>
         15<span>日(土)・</span>
         16<span>日(日)</span>
       </DaysArea>
       <Flex>
-        {/* <ParticipantListButton /> */}
-        {/* <JoinButton /> */}
       </Flex>
-      {/* <h2>VRChat技術者へ、 お願いがあります。</h2> */}
-      {/* <RecruitText /> */}
     </InfoArea>
   </NonLiginViewArea>
 )
@@ -78,10 +67,6 @@ const DaysArea = styled.div`
     color: #AAA;
   }
 `;
-// const DaysLabel = styled.span`
-//   width: 5em;
-//   display: inline-block;
-// `;
 const Flex = styled.div`
   && {
     width: ${isMobile ? '100vw' : '80vw;'}
@@ -108,13 +93,3 @@ const Thing = () => {
     </mesh>
   )
 }
-
-// const LoginButton = () => {
-//   const { history } = useReactRouter();
-//   const onClick = () => providerTwitter(() => {
-//     history.push('/users');
-//   })
-//   return (
-//     <button className="App-login" onClick={onClick}>Login</button>
-//   );
-// };
