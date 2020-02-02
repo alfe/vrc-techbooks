@@ -5,6 +5,7 @@ import NonLoginView from './component/NonLoginView'
 import Uploader from './component/Uploader'
 import Header from './component/Header'
 import Catalog from './component/Catalog'
+import Join from './component/Join'
 import Config from './component/Config'
 
 function BaseRouter() {
@@ -15,6 +16,7 @@ function BaseRouter() {
         <Switch>
           <Route path="/users" component={Uploader} />
           <Route path="/catalog" component={Catalog} />
+          <Route path="/join" component={Join} />
           <Route path="/config" component={Config} />
           <Route path="/" component={NonLoginView} />
         </Switch>

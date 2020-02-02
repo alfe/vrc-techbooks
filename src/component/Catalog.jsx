@@ -16,7 +16,7 @@ const WorldAlias = React.memo(() => {
       const newGenre = genre.filter(n => n !== gen);
       setGenre(newGenre)
     } else {
-      setGenre([...genre, gen])
+      setGenre([gen])
     }
   };
   const getlist = () => {
@@ -133,6 +133,7 @@ const DetailList = styled.div`
     flex: 100%;
     margin-top: 2rem;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     ${!isMobile ? '' : `
     zoom: ${window.outerWidth/640};

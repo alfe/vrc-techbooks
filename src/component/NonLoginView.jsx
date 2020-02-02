@@ -12,6 +12,7 @@ const NonLoginView = ({ onClick }) => (
     </Canvas>
     <InfoArea>
       <h1>VRC技術市</h1>
+      <h2>VRChat技術の同人誌イベント</h2> 
       <DaysArea>
         2020<span>年 </span>
         2<span>月</span>
@@ -45,14 +46,16 @@ const InfoArea = styled.div`
     margin-top: ${isMobile ? '-5rem' : '-7rem'};
   }
   h2 {
-    margin-top: 7rem;
-    font-size: ${isMobile ? '2.5rem' : '3rem'};
+    margin: 0;
+    margin-top: ${isMobile ? '-3rem' : '-5rem'};
+    font-size: ${isMobile ? '1rem' : '1.8rem'};
+    color: #26B6FF;
   }
 `;
 const DaysArea = styled.div`
   &&{ 
     width: ${isMobile ? '16rem' : '28rem;'}
-    margin: -3rem auto 2rem;
+    margin: 0 auto;
     font-size: 1.3em;
     font-family: monospace;
   }

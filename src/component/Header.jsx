@@ -8,8 +8,10 @@ const Header = () => {
       <div>
         <HeaderItem href="/" alt="VRC技術市">
           <img src={logo} alt="VRC技術市"/>
-          VRC技術市</HeaderItem>
+          <span className="hm">VRC技術市</span>
+        </HeaderItem>
         <HeaderItem href="/catalog" alt="カタログ">カタログ</HeaderItem>
+        <HeaderItem href="/join" alt="入場方法">入場方法</HeaderItem>
       </div>
       <div>
         {/* <HeaderItem href="/users" alt="出展者入口">出展者入口</HeaderItem> */}
@@ -37,5 +39,8 @@ const HeaderItem = styled.a`
   && > img {
     height: 2rem;
     margin: 0 .5rem -.3rem;
+  }
+  .hm {
+    ${isMobile ? 'display: none' : ''};
   }
 `;

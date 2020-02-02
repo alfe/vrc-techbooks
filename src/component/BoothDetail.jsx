@@ -53,7 +53,7 @@ const BoothDetail = ({ data={}, zoom, setZoom }) => {
 
 const BoothNo = styled.div`
   && {
-    width: 3rem;
+    width: 4rem;
     height: inherit;
     padding: .5em;
     line-height: 1;
