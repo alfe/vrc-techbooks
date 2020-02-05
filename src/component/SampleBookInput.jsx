@@ -16,6 +16,7 @@ import { updateStore, uploadStorage } from '../config';
 
 (typeof window !== 'undefined' ? window : {}).pdfjsWorker =
   require('pdfjs-dist/build/pdf.worker');
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',
@@ -49,7 +50,7 @@ const renderToPreview = async (fileData, canvasRef, pageNum = 1) => {
   const canvas = canvasRef.current
   await page.render({
     canvasContext: canvas.getContext('2d'),
-    viewport: page.getViewport({ scale: 2 }),
+    viewport: page.getViewport({ scale: 2.09 }),
     transform: [1, 0, 0, 1, 0, 0],
   }).promise
 }
@@ -62,7 +63,7 @@ const renderCoverToCanvas = async (fileData, canvasRef, num) => {
   const canvas = canvasRef.current
   await page.render({
     canvasContext: canvas.getContext('2d'),
-    viewport: page.getViewport({ scale: 2 }),
+    viewport: page.getViewport({ scale: 2.09 }),
     transform: [1, 0, 0, 1, 0, 0],
   }).promise
   uploadImage({ canvas, num, page: 'cover' })
@@ -108,7 +109,7 @@ const renderMainToCanvas = async (fileData, num, canvasRef, setTotalPages, setPa
 const renderPageToCanvas = async (pdf, pageNum, canvasRef, canvasContext, isRight) => {
   if (pageNum > pdf.numPages) return
   const page = await pdf.getPage(pageNum)
-  const viewport = page.getViewport({ scale: 2 })
+  const viewport = page.getViewport({ scale: 2.09 })
   return await page.render({
     canvasContext,
     viewport,
@@ -133,6 +134,16 @@ const uploadImage = ({ canvas, num, page, successCallback }) => {
   const imageName = `${username}${!num?'':`-${num}`}-${page}.png`
   const imageFile = new File([blob], imageName, { lastModified: new Date().getTime() })
   uploadStorage(imageFile, imageName, successCallback)
+}
+
+// アップロード済みページのリストを作成
+const getimgurlList = (pages, num) => {
+  const resultlist = [];
+  const username = sessionStorage.getItem('username');
+  for (let index = 1; index < Math.ceil((pages - 1)/2 + 1); index++) {
+    resultlist.push(`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${username}%2F${username}${!num?'':`-${num}`}-${index}.png?alt=media`)
+  }
+  return resultlist;
 }
 
 export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
@@ -171,13 +182,6 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
       setPage(0)
     })
   }
-  const getimgurlList = () => {
-    const resultlist = [];
-    for (let index = 1; index < Math.ceil((uploadedPages - 1)/2 + 1); index++) {
-      resultlist.push(`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-${index}.png?alt=media`)
-    }
-    return resultlist;
-  }
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -188,35 +192,40 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
           type="file"
           accept="application/pdf"
           onChange={onChangeBook} />
+        {/* 初期状態 */}
         {!pdfFile && !PDFSubmittedAt && <label htmlFor={`samplebook${num}`}>PDF: A4(297 x 210)</label>}
+
+        {/* アップロード済 */}
         {!pdfFile && PDFSubmittedAt && (
-          <CanvasBox>
-            <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${sessionStorage.getItem('username')}%2F${sessionStorage.getItem('username')}${!num?'':`-${num}`}-cover.png?alt=media`} alt="cover.png"/>
-            {getimgurlList().map((url, i) => (
-              <img key={`imgurl-${url}`} src={url} alt={`${i}.png`}/>
-            ))}
-          </CanvasBox>
+          <React.Fragment>
+            <CanvasBox>
+              <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${username}%2F${username}${!num?'':`-${num}`}-cover.png?alt=media`} alt="cover.png"/>
+              {getimgurlList(uploadedPages, num).map((url, i) => (
+                <img key={`imgurl-${url}`} src={url} alt={`${i}.png`}/>
+              ))}
+            </CanvasBox>
+            <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(1240×1754)]</label>
+          </React.Fragment>
         )}
 
+        {/* 新規アップロード */}
         {pdfFile && (
-        <CanvasBox>
-          <canvas height="1754" width="1240" ref={page1Ref} />
-          <canvas height="1754" width="1240" ref={page2Ref} />
-          <canvas height="1754" width="1240" ref={page3Ref} />
-        </CanvasBox>)}
-        {pdfFile && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(1240×1754)]</label>}
-        {!pdfFile && PDFSubmittedAt && <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(1240×1754)]</label>}
+          <React.Fragment>
+            <CanvasBox>
+              <canvas height="1754" width="1240" ref={page1Ref} />
+              <canvas height="1754" width="1240" ref={page2Ref} />
+              <canvas height="1754" width="1240" ref={page3Ref} />
+            </CanvasBox>
+            <label htmlFor={`samplebook${num}`} className="box__file__reupload">再アップロード[A4(1240×1754)]</label>
+          </React.Fragment>
+        )}
         <Button disabled={!pdfFile} variant="contained" color="primary" onClick={onClickOpenUploadDialog}>
           アップロード
         </Button>
       </BoxInput>
 
-      <Dialog
-        fullWidth
-        maxWidth="md"
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+      {/* アップロードダイアログ */}
+      <Dialog fullWidth maxWidth="md" open={open} onClose={() => setOpen(false)}>
         <DialogTitle>見本誌をアップロード</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -231,9 +240,8 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
           <Button onClick={() => setOpen(false)} color="primary">
             Close
           </Button>
-          <Button
-            onClick={onSubmitToUpload} disabled={currentPage !== 0}
-            variant="contained" color="primary">
+          <Button variant="contained" color="primary"
+            onClick={onSubmitToUpload} disabled={currentPage !== 0} >
             アップロード
           </Button>
         </DialogActions>
@@ -243,10 +251,7 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
         closeAfterTransition
         BackdropComponent={Backdrop}
         className={classes.modal}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
+        BackdropProps={{ timeout: 500 }}>
         <Fade in={modal}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">アップロード中</h2>
