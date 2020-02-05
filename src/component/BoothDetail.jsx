@@ -45,7 +45,9 @@ const BoothDetail = ({ data={}, zoom, setZoom }) => {
           <img src={!data.PosterSubmittedAt ? '/null-poster.png' : getImgUrl('poster')} alt="poster" />
           <img src={!data.MenuSubmittedAt ? '/null-menu.png' : getImgUrl('menu')} alt="menu" />
         </BoothImageArea>
-        <ShopLinkButton href={data.boothURL} disabled={!data.boothURL} alt="頒布場所">頒布場所</ShopLinkButton>
+        <ShopLinkButton href={data.boothURL} disabled={!data.boothURL} alt="頒布場所" target="_blank" rel="noopener noreferrer">
+          頒布場所
+        </ShopLinkButton>
       </div>
     </BoothBlock>
   );

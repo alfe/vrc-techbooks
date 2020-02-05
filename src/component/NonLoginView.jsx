@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import logo from './logo.svg';
 import '../App.css';
 
-const NonLoginView = ({ onClick }) => (
+const NonLoginView = () => (
   <NonLiginViewArea>
     <Canvas className="App-canvas" >
       <Thing />
@@ -27,7 +27,6 @@ const NonLoginView = ({ onClick }) => (
 export default NonLoginView;
 
 const isMobile = window.outerWidth < 800;
-
 const NonLiginViewArea = styled.div`
   && {
     background-color: #282c34;

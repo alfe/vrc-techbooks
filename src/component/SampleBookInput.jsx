@@ -66,11 +66,13 @@ const renderCoverToCanvas = async (fileData, canvasRef, num) => {
     viewport: page.getViewport({ scale: 2.09 }),
     transform: [1, 0, 0, 1, 0, 0],
   }).promise
-  uploadImage({ canvas, num, page: 'cover' })
-  if (!sessionStorage.PosterSubmittedAt) {
-    uploadImage({ canvas, page: 'poster' })
-    await await updateStore({ PosterSubmittedAt: new Date().toLocaleString() })
-  }
+  window.setTimeout(async () => {
+    uploadImage({ canvas, num, page: 'cover' })
+    if (!sessionStorage.PosterSubmittedAt) {
+      uploadImage({ canvas, page: 'poster' })
+      await await updateStore({ PosterSubmittedAt: new Date().toLocaleString() })
+    }
+  }, 1500);
 }
 
 // Canvasへコンテンツ（表紙以外）書き込み
