@@ -6,8 +6,8 @@ import CatalogGenreList from './CatalogGenreList';
 
 const WorldAlias = React.memo(() => {
   const [list, setlist] = React.useState([]);
-  const [rotate, setRotate] = React.useState(360/42);
-  const [height, setHeight] = React.useState(42);
+  const [rotate, setRotate] = React.useState(360/43);
+  const [height] = React.useState(42);
   const [selected, setSelect] = React.useState(0);
   const [genre, setGenre] = React.useState([]);
   const [zoom, setZoom] = React.useState(false);
@@ -19,22 +19,11 @@ const WorldAlias = React.memo(() => {
       setGenre([gen])
     }
   };
-  const getlist = () => {
-    const twiIds = list.map(i=>i.twitterId)
-    const a = document.createElement('a');
-    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i =>
-      `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${i}%2F${i}-menu.png?alt=media`
-      ).join("\r\n"));
-    a.download = 'menu-list.txt';
-    a.click();
-    a.href = 'data:text/plain,' + encodeURIComponent(twiIds.map(i =>
-      `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${i}%2F${i}-poster.png?alt=media`
-      ).join("\r\n"));
-    a.download = 'poster-list.txt';
-    a.click();
-  }
   if (list.length === 0) {
-    getUserList(setlist)
+    getUserList((userlist) => {
+      setlist(userlist)
+      setRotate(360 / userlist.length)
+    })
   }
   return (
     <WorldAliasArea>
@@ -50,14 +39,6 @@ const WorldAlias = React.memo(() => {
               src={user.photoURL || "/default-user-icon.png"} />
           ))}
         </div>
-        {window.location.hash === '#d' && (
-          // デバッグ用
-          <React.Fragment>
-            <input type="number" value={rotate} onChange={e => setRotate(e.target.value)} />
-            <input type="number" value={height} onChange={e => setHeight(e.target.value)} />
-            <button onClick={getlist}>getlist</button>
-          </React.Fragment>
-        )}
         {list.length !== 0 &&
           <CenterDetail zoom={zoom}>
             <BoothDetail data={list[selected]} zoom={zoom} setZoom={setZoom} />
@@ -99,13 +80,13 @@ const getPlaceColor = (place) => {
     default: return '#26B5FF';
   }
 }
-const UserIcon = ({ src, place, rotate, height, onHover }) => {
+const UserIcon = React.memo(({ src, place, rotate, height, onHover }) => {
   return (
     <UserIconBar rotate={rotate} height={height}>
       <UserIconImg place={place} rotate={rotate} src={src} onMouseEnter={onHover} />
     </UserIconBar>
   );
-}
+});
 
 const isMobile = window.outerWidth < 800;
 const WorldAliasArea = styled.div`

@@ -87,6 +87,9 @@ const UploadForm = React.memo(({ userData }) => {
 
   return (
     <UploaderArea>
+      { window.navigator.userAgent.toLowerCase().indexOf('chrome') < 0 &&
+        <NotUseChrome>うまくアップロードできない場合はGoogle Chromeでお試しください</NotUseChrome>
+      }
       <FormsArea>
         {/* <AddUser /> */}
         <UserName />
@@ -140,4 +143,7 @@ export default Uploader;
 
 const Memo = ({ children }) => (
   <span style={{ fontSize: '.8em', marginLeft: '1em' }}>{children}</span>
+);
+const NotUseChrome = ({ children }) => (
+  <span style={{ fontSize: '.8em', color: '#FFFFFF' }}>{children}</span>
 );
