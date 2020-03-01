@@ -4,7 +4,12 @@ import styled from 'styled-components'
 const LoginGate = ({ onClick }) => (
   <LoginGateArea>
     <h2>VRC技術市 出展者用アップローダ</h2>
-    <button className="App-login" onClick={onClick}>Login</button>
+    <button
+      className="App-login"
+      disabled={process.env.REACT_APP_DISABLE_LOGIN==='true'}
+      onClick={onClick}>
+      Login
+    </button>
   </LoginGateArea>
 )
 
@@ -21,6 +26,13 @@ const LoginGateArea = styled.div`
   }
   .App-login {
     position: relative;
+  }
+  .App-login:disabled {
+    color: darkgray;
+    background: gray;
+    border: none;
+    box-shadow: none;
+    cursor: not-allowed;
   }
 `;
 
