@@ -7,8 +7,8 @@ firebase.initializeApp({
   projectId: process.env.REACT_APP_PROJECT_ID,  
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL: "https://vrc-techbooks.firebaseio.com",
-  storageBucket: "vrc-techbooks.appspot.com",
+  databaseURL: `https://${process.env.REACT_APP_PROJECT_ID}.firebaseio.com`,
+  storageBucket: `${process.env.REACT_APP_PROJECT_ID}.appspot.com`,
 });
 
 export const provider = new firebase.auth.TwitterAuthProvider();
