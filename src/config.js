@@ -6,7 +6,7 @@ import 'firebase/firestore'
 firebase.initializeApp({
   projectId: process.env.REACT_APP_PROJECT_ID,  
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  authDomain: `${process.env.REACT_APP_PROJECT_ID}.firebaseapp.com`,
   databaseURL: `https://${process.env.REACT_APP_PROJECT_ID}.firebaseio.com`,
   storageBucket: `${process.env.REACT_APP_PROJECT_ID}.appspot.com`,
 });
@@ -22,7 +22,7 @@ export const providerTwitter = (successCallback, errorCallback) => {
     const db = firebase.firestore();
     const usersCollectionRef = db.collection('users').doc(username.toLowerCase());
     const setUserCollection = async () => {
-      await usersCollectionRef.set({ uid }, { merge: true });
+      await usersCollectionRef.set({ displayName, photoURL, uid }, { merge: true });
       if (successCallback) successCallback();
     };
     usersCollectionRef.get().then((doc) => {

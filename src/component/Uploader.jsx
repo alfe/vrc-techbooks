@@ -94,7 +94,7 @@ const UploadForm = React.memo(({ userData }) => {
         {/* <AddUser /> */}
         <UserName />
         <FormTitle>見本誌 <Memo>*必須 → 1/26一次受付  ◆  2/8締切</Memo></FormTitle>
-        <SampleBookInput PDFSubmittedAt={userData.PDFSubmittedAt} uploadedPages={userData.totalPages}/>
+        <SampleBookInput num={3} PDFSubmittedAt={userData.PDF3SubmittedAt} uploadedPages={userData.totalPages3}/>
 
         <FormTitle>頒布場所 <Memo>*必須 → 1/17一次受付  ◆  2/8締切</Memo></FormTitle>
         <TextInput
