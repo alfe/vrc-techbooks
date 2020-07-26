@@ -3,6 +3,7 @@ import { getUserList } from '../config';
 import styled from 'styled-components'
 import BoothDetail from './BoothDetail';
 import CatalogGenreList from './CatalogGenreList';
+import '../css/generated-icons.css';
 
 const WorldAlias = React.memo(() => {
   const [list, setlist] = React.useState([]);
@@ -32,27 +33,35 @@ const WorldAlias = React.memo(() => {
           {list.map((user, i) => (
             <UserIcon
               key={`icon-${user.twitterId}`}
+              index={('0'+(i+1)).slice(-2)}
               rotate={i * rotate}
               height={height}
               onHover={() => setSelect(i)}
-              place={user.place}
-              src={user.photoURL || "/default-user-icon.png"} />
+              place={user.place} />
           ))}
         </div>
         {list.length !== 0 &&
           <CenterDetail zoom={zoom}>
-            <BoothDetail data={list[selected]} zoom={zoom} setZoom={setZoom} />
+            <BoothDetail
+              index={('0'+(selected+1)).slice(-2)}
+              data={list[selected]}
+              zoom={zoom}
+              setZoom={setZoom} />
           </CenterDetail>
         }
       </WorldAliasCircle>
 
       <CatalogGenreList genre={genre} setMatchGenre={setMatchGenre} />
       <DetailList>
-        {list.filter(user => getMatchGenre(genre, user.place)).map((user, i) => (
-          <DetailItem key={`detail-${user.twitterId}`}>
-            <BoothDetail data={user} />
-          </DetailItem>
-        ))}
+        {list
+          .map((user, index)=> ({ ...user, index }))
+          .filter(user => getMatchGenre(genre, user.place))
+          .map((user) => (
+            <DetailItem key={`detail-${user.twitterId}`}>
+              <BoothDetail index={('0'+(user.index+1)).slice(-2)} data={user} />
+            </DetailItem>
+          )
+        )}
       </DetailList>
     </WorldAliasArea>
   )
@@ -80,10 +89,10 @@ const getPlaceColor = (place) => {
     default: return '#26B5FF';
   }
 }
-const UserIcon = React.memo(({ src, place, rotate, height, onHover }) => {
+const UserIcon = React.memo(({ index, place, rotate, height, onHover }) => {
   return (
     <UserIconBar rotate={rotate} height={height}>
-      <UserIconImg place={place} rotate={rotate} src={src} onMouseEnter={onHover} />
+      <UserIconImg className={`icon-${index}`}  place={place} rotate={rotate} onMouseEnter={onHover} />
     </UserIconBar>
   );
 });
@@ -136,10 +145,9 @@ const UserIconBar = styled.div`
     transform: rotate(${p => p.rotate}deg) translateY(-50px);
   }
 `;
-const UserIconImg = styled.img`
+const UserIconImg = styled.i`
   && {
-    width: 48px;
-    height: 48px;
+    display: block;
     border-radius: 50%;
     cursor: pointer;
     transform: rotate(${p => -p.rotate}deg);

@@ -18,10 +18,14 @@
     "three": "^0.117.0",
     "use-react-router": "^1.0.7"
   },
+  "devDependencies": {
+    "spritesmith-cli": "^1.1.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "host": "firebase deploy --only hosting"
+    "host": "firebase deploy --only hosting",
+    "sprite": "./node_modules/spritesmith"
   },
   "eslintConfig": {
     "extends": "react-app"

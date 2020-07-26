@@ -23,16 +23,15 @@ const getPlaceName = (place) => {
   }
 }
 
-const BoothDetail = ({ data={}, zoom, setZoom }) => {
-  const getImgUrl = (type) =>
-    `${process.env.REACT_APP_FIREBASE_STORAGE_URL}${data.twitterId}%2F${data.twitterId}-${type}.png?alt=media`
+const BoothDetail = ({ data={}, index, zoom, setZoom }) => {
+  const getImgUrl = (type) => `/img/booth-detail/${data.twitterId}-${type}.jpg`
   return (
     <BoothBlock>
       <BoothTag place={data.place}>{getPlaceName(data.place)}</BoothTag>
       <div>
         <UserInfoArea>
           <div>
-            <img src={data.photoURL || "/default-user-icon.png"} alt="icon" />
+            <i className={`icon-${index}`} />
             <span>{data.displayName}</span>
             <BoothNo place={data.place}>{data.boothNo}</BoothNo>
           </div>
@@ -121,7 +120,7 @@ const UserInfoArea = styled.div`
     align-items: center;
     justify-content: flex-start;
   }
-  && > div > img {
+  && > div > i {
     border-radius: 50%;
   }
   && > div > span {
