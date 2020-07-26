@@ -25,7 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "host": "firebase deploy --only hosting",
-    "sprite": "./node_modules/spritesmith"
+    "sprite": "npx spritesmith"
   },
   "eslintConfig": {
     "extends": "react-app"
