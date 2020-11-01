@@ -1,5 +1,5 @@
 import React from 'react'
-import { getUserList, uploadFile } from '../config';
+import { getUserList } from '../config';
 import styled from 'styled-components'
 
 const Config = React.memo(() => {

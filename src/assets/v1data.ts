@@ -1,0 +1,334 @@
+ /* eslint-disable */
+
+const v1Data = [{
+  "twitterId": "mmnk_vt",
+  "place": 0,
+  "displayName": "みみんく",
+  "boothNo": "V-0",
+  "boothURL": "https://mmnk-vt.booth.pm/items/1833720",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "siodome0",
+  "place": 100461,
+  "displayName": "潮留",
+  "boothNo": "A-1",
+  "boothURL": "https://siodamari.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "koyuri_vrchat",
+  "place": 102386,
+  "displayName": "こゆり",
+  "boothNo": "A-2",
+  "boothURL": "https://gloriosagarden.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "lunatic_movie",
+  "place": 104377,
+  "displayName": "FranShade/yukonkon3",
+  "boothNo": "A-3",
+  "boothURL": "https://yukonkon.booth.pm/items/1769559",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "sersz7",
+  "place": 106539,
+  "displayName": "せらすずな",
+  "boothNo": "A-4",
+  "boothURL": "https://sersz7.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "lowteq_vr",
+  "place": 106721,
+  "displayName": "ろーてく",
+  "boothNo": "A-5",
+  "boothURL": "https://lowteq.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "momoandbanana22",
+  "place": 106724,
+  "displayName": "桃芭蕉実🍑🍌",
+  "boothNo": "A-6",
+  "boothURL": "https://www.pixiv.net/fanbox/creator/42255769",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "abcde_find",
+  "place": 107569,
+  "displayName": "abcde_kind",
+  "boothNo": "A-7",
+  "boothURL": "https://abcdekind.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "vrmorocco",
+  "place": 109973,
+  "displayName": "今日からものつく自由業！",
+  "boothNo": "A-8",
+  "boothURL": "https://truck-morocco.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "san_kaku_vrc",
+  "place": 109990,
+  "displayName": "SAN_KAKU@VRChat",
+  "boothNo": "A-9",
+  "boothURL": "https://sankaku-vrc.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "sansuke05_vr",
+  "place": 202400,
+  "displayName": "サンスケ_VRChat",
+  "boothNo": "T-1",
+  "boothURL": "https://sansuke05.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "ark_misha",
+  "place": 202493,
+  "displayName": "みしゃ@ 新年初入院",
+  "boothNo": "T-2",
+  "boothURL": "https://lunafox.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "tenteeeee_vrc",
+  "place": 204261,
+  "displayName": "TenteEEEE てんて-",
+  "boothNo": "T-3",
+  "boothURL": "https://tenteeeee.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "kuzusaki",
+  "place": 204554,
+  "displayName": "三田村綯夜",
+  "boothNo": "T-4",
+  "boothURL": "https://asobiy3.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "kohack_v",
+  "place": 206667,
+  "displayName": "坪倉輝明",
+  "boothNo": "T-5",
+  "boothURL": "https://tsubokulab.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "gatosyocora",
+  "place": 209419,
+  "displayName": "がとーしょこら",
+  "boothNo": "T-7",
+  "boothURL": "https://gatosyocora.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "hoke946",
+  "place": 209440,
+  "displayName": "ほけ",
+  "boothNo": "T-8",
+  "boothURL": "https://hoke.booth.pm/items/1823194",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "suna_vrc",
+  "place": 209900,
+  "displayName": "suna",
+  "boothNo": "T-9",
+  "boothURL": "https://sandbox.booth.pm/items/1235305",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "2_sac",
+  "place": 301354,
+  "displayName": "かでん",
+  "boothNo": "S-1",
+  "boothURL": "https://sporadic-e.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "allkavt",
+  "place": 301978,
+  "displayName": "わた",
+  "boothNo": "S-2",
+  "boothURL": "https://wata-ofuton.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "7cit",
+  "place": 302175,
+  "displayName": "IT7C",
+  "boothNo": "S-3",
+  "boothURL": "https://it7c.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "butadiene121",
+  "place": 303500,
+  "displayName": "ブタジエン",
+  "boothNo": "S-4",
+  "boothURL": "https://butadiene.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "shoninvrc",
+  "place": 303511,
+  "displayName": "承認欲求",
+  "boothNo": "S-5",
+  "boothURL": "https://shoninvrc.booth.pm/items/1770454",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "phi16_",
+  "place": 304647,
+  "displayName": "phi16",
+  "boothNo": "S-6",
+  "boothURL": "https://phi16.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "fotfla",
+  "place": 306409,
+  "displayName": "fotfla",
+  "boothNo": "S-7",
+  "boothURL": "https://akikaze3ks.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "azuritelab",
+  "place": 306916,
+  "displayName": "azurite",
+  "boothNo": "S-8",
+  "boothURL": "https://atl.booth.pm/items/1779114",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "karasu_ma_kuro",
+  "place": 307253,
+  "displayName": "Karasuma-Kuro",
+  "boothNo": "S-9",
+  "boothURL": "https://karasuma-kuro.booth.pm/items/1482783",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "kajitaj63b3",
+  "place": 309680,
+  "displayName": "梶田悠",
+  "boothNo": "S-10",
+  "boothURL": "https://genera.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "himazin917",
+  "place": 309900,
+  "displayName": "Niko_14",
+  "boothNo": "S-11",
+  "boothURL": "https://niko14.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "hosikuzuwitch",
+  "place": 400456,
+  "displayName": "まほうつかいのぬこ＠VRCなにもしてないひと",
+  "boothNo": "G-2",
+  "boothURL": "https://wizcat.booth.pm/items/1333334",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "nagisano_kanade",
+  "place": 401361,
+  "displayName": "渚乃奏",
+  "boothNo": "G-3",
+  "boothURL": "https://ktamayan.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "uozumi2390",
+  "place": 402197,
+  "displayName": "魚住さん",
+  "boothNo": "G-4",
+  "boothURL": "https://uozumi.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "vr_hekisan",
+  "place": 500529,
+  "displayName": "へき",
+  "boothNo": "W-1",
+  "boothURL": "https://hekiyasan.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "c_colloid",
+  "place": 503074,
+  "displayName": "コロイド",
+  "boothNo": "W-3",
+  "boothURL": "https://colloid.booth.pm/items/1822618",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "tsubasa9317",
+  "place": 503705,
+  "displayName": "ねころ",
+  "boothNo": "W-4",
+  "boothURL": "https://nekoro-n.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "yossy222_vrc",
+  "place": 504783,
+  "displayName": "yossy222",
+  "boothNo": "W-5",
+  "boothURL": "https://yossy222.booth.pm/items/1829776",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "coquelicots_wot",
+  "place": 506135,
+  "displayName": "コクリコ",
+  "boothNo": "W-6",
+  "boothURL": "https://coquelicotz.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "outerdotvr",
+  "place": 507134,
+  "displayName": "outerdot＠藍夜野雑貨",
+  "boothNo": "W-7",
+  "boothURL": "https://aiyonozakka.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "kayanomicha",
+  "place": 507696,
+  "displayName": "かやのみちゃ🍡",
+  "boothNo": "W-8",
+  "boothURL": "https://kayanomicha.booth.pm/items/1821720",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "a3_yuu",
+  "place": 509000,
+  "displayName": "A3",
+  "boothNo": "W-9",
+  "boothURL": "https://a3s.booth.pm/items/1773519",
+  "hasPoster": true,
+  "hasMenu": true
+}, {
+  "twitterId": "kanonji",
+  "place": 509901,
+  "displayName": "kanonji",
+  "boothNo": "W-10",
+  "boothURL": "https://kanonji.booth.pm/",
+  "hasPoster": true,
+  "hasMenu": true
+}];
+
+export const getV1Data = () => v1Data;
+export default {};

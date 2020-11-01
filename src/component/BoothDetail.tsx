@@ -1,29 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
-import twitterLogo from './twitter-icon.svg';
+import { getPlaceColor, getPlaceName } from './lib';
+import twitterLogo from '../assets/image/twitter-icon.svg';
 
-const getPlaceColor = (place) => {
-  switch (true) {
-    case 500000 < place: return '#7442F4';
-    case 400000 < place: return '#46BDC6';
-    case 300000 < place: return '#34A752';
-    case 200000 < place: return '#FBBC06';
-    case 100000 < place: return '#EA4235';
-    default: return '#26B5FF';
-  }
-}
-const getPlaceName = (place) => {
-  switch (true) {
-    case 500000 < place: return 'WORLD';
-    case 400000 < place: return 'GIMMICK';
-    case 300000 < place: return 'SHADER';
-    case 200000 < place: return 'TOOL';
-    case 100000 < place: return 'AVATER';
-    default: return 'OFFICIAL';
-  }
-}
+type Props = {
+  data: {
+    twitterId: string;
+    place: number;
+    displayName: string;
+    boothNo: string;
+    boothURL: string;
+    hasPoster: boolean;
+    hasMenu: boolean;
+  };
+  index: string;
+  zoom?: any;
+  setZoom?: Function;
+};
 
-const BoothDetail = ({ data={}, index, zoom, setZoom }) => {
+const BoothDetail = ({ data, index, zoom, setZoom }: Props) => {
   const getImgUrl = (type) => `/img/booth-detail/${data.twitterId}-${type}.jpg`
   return (
     <BoothBlock>
@@ -35,14 +30,13 @@ const BoothDetail = ({ data={}, index, zoom, setZoom }) => {
             <span>{data.displayName}</span>
             <BoothNo place={data.place}>{data.boothNo}</BoothNo>
           </div>
-          <a href={`https://twitter.com/${data.twitterId}`} alt="twitter"
-            target="_blank" rel="noopener noreferrer">
+          <a href={`https://twitter.com/${data.twitterId}`} target="_blank" rel="noopener noreferrer">
             <img src={twitterLogo} alt={`@{data.twitterId}`} />
           </a>
         </UserInfoArea>
         <BoothImageArea zoom={zoom} onClick={() => setZoom && setZoom(!zoom)}>
-          <img src={!data.PosterSubmittedAt ? '/null-poster.png' : getImgUrl('poster')} alt="poster" />
-          <img src={!data.MenuSubmittedAt ? '/null-menu.png' : getImgUrl('menu')} alt="menu" />
+          <img src={!data.hasPoster ? '/null-poster.png' : getImgUrl('poster')} alt="poster" />
+          <img src={!data.hasMenu ? '/null-menu.png' : getImgUrl('menu')} alt="menu" />
         </BoothImageArea>
         <ShopLinkButton href={data.boothURL} disabled={!data.boothURL} alt="頒布場所" target="_blank" rel="noopener noreferrer">
           頒布場所
