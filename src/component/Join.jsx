@@ -15,7 +15,7 @@ const Join = ({ onClick }) => (
       <h2>ブラウザからワールドを開く</h2> 
       <a href="https://www.vrchat.com/home/launch?worldId=wrld_3a71aacd-b494-401f-a31b-da9735708d57" target="_blank" rel="noopener noreferrer" alt="Pulic launch">
         <img src={publicIcon} alt="Public"/>
-         <span>VRChat公式サイトに移動して<br/>“LAUNCH WORLD”から入場</span>
+        <span>VRChat公式サイトに移動して<br/>“LAUNCH WORLD”から入場</span>
       </a>
       <a href="https://www.vrchat.com/home/world/wrld_3a71aacd-b494-401f-a31b-da9735708d57" target="_blank" rel="noopener noreferrer" alt="Other launch">
         <img src={friendsIcon} alt="Friends"/>

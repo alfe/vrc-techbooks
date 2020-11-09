@@ -27,3 +27,6 @@ package-lock.json
 package-lock.json
 yarn.lock
 .firebaserc
+
+# Local Netlify folder
+.netlify

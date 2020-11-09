@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LogRocket from 'logrocket';
+
 import './App.css';
 import V1NonLoginView from './component/V1NonLoginView'
-import V2NonLoginView from './component/V2NonLoginView'
+import V2NonLoginView from './container/V2NonLoginView'
 import Uploader from './component/Uploader'
 import Header from './component/Header'
 import Catalog from './component/Catalog'
@@ -18,7 +20,9 @@ export default function App() {
         'page_path': location.pathname
       });
     });
+    LogRocket.init('98yupe/vrc-tech2');
   });
+
   return (
     <div className="App">
       <Header />

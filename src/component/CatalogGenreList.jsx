@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import media from "styled-media-query";
 
 const CatalogGenreList = ({ genre, setMatchGenre }) => {
   return (
@@ -14,7 +15,6 @@ const CatalogGenreList = ({ genre, setMatchGenre }) => {
 };
 export default CatalogGenreList;
 
-const isMobile = window.outerWidth < 800;
 const GenreList = styled.div`
   && {
     flex: 100%;
@@ -32,8 +32,15 @@ const GenreItem = styled.button`
     border-radius: 8px;
     background: ${p => p.selected ? p.color : 'transparent'};
     color: ${p => p.selected ? '#FFFFFF' : p.color};
-    font-size: ${isMobile ? '.8rem' : '1.5rem'};
-    padding: .5rem ${isMobile ? '.5rem' : '2rem'};
-    margin: 0 ${isMobile ? '0.1rem' : '.5rem'};
+    ${media.lessThan("medium")`
+      font-size: .8rem;
+      padding: .5rem .5rem;
+      margin: 0 0.1rem;
+    `}
+    ${media.greaterThan("medium")`
+      font-size: 1.5rem;
+      padding: .5rem 2rem;
+      margin: 0 .5rem;
+    `}
   }
 `;

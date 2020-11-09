@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import media from "styled-media-query";
 import BoothDetail from './BoothDetail';
 import CatalogGenreList from './CatalogGenreList';
 import UserIcon from './UserIcon';
@@ -77,7 +78,6 @@ const getMatchGenre = (genre, place) => {
   }
 }
 
-const isMobile = window.outerWidth < 800;
 const WorldAliasArea = styled.div`
   && {
     display: flex;
@@ -93,8 +93,8 @@ const WorldAliasCircle = styled.div`
     width: 50rem;
     height: 50rem;
     box-shadow: 0 0 8px #FFFFFF, 0 0 16px #FFFFFF;
-    ${!isMobile ? '' : `
-    zoom: ${window.outerWidth/900};
+    ${media.lessThan("medium")`
+      zoom: ${window.outerWidth/900};
     `}
   }
 `;
@@ -105,8 +105,8 @@ const DetailList = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    ${!isMobile ? '' : `
-    zoom: ${window.outerWidth/640};
+    ${media.lessThan("medium")`
+      zoom: ${window.outerWidth/640};
     `}
   }
 `;

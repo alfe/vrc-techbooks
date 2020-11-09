@@ -1,15 +1,11 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Canvas, useFrame } from 'react-three-fiber'
-import * as THREE from 'three'
-import logo from './logo.svg';
+import RotationLogo from '../component/RotationLogo';
 import '../App.css';
 
 const NonLoginView = () => (
   <NonLiginViewArea>
-    <Canvas className="App-canvas" >
-      <Thing />
-    </Canvas>
+  <RotationLogo />
     <InfoArea>
       <h1>VRC技術市</h1>
       <h2>VRChat技術の同人誌イベント</h2> 
@@ -83,15 +79,3 @@ const Flex = styled.div`
     width: 25rem;
   }
 `;
-
-const Thing = () => {
-  const ref = useRef()
-  const texture = new THREE.TextureLoader().load(logo);
-  useFrame(() => (ref.current.rotation.y += 0.01))
-  return (
-    <mesh ref={ref} position={[0, 0.2, 2.8]} >
-      <planeBufferGeometry attach="geometry" args={[2, 2]} />
-      <meshBasicMaterial attach="material" map={texture} side={THREE.DoubleSide} transparent />
-    </mesh>
-  )
-}
