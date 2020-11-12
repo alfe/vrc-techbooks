@@ -1,151 +1,199 @@
 import React from 'react'
 import styled from 'styled-components'
+import media from "styled-media-query";
 import JoinButton from './JoinButton'
 
 const RecruitText = React.memo(() => (
   <RecruitTextArea>
-<p>こんにちは　みみんくです</p>
+    {`こんにちは みみんくです
 
-<p>VRChatも少し前と比べてずいぶん様変わりしてきました</p>
-<br />
+    今年2月 VRChat内でVRChatの技術を紹介しあう同人誌イベントを開催しました
 
-<p>みんなそれぞれが<br />
-かわいいアバターをつくったり　きらびやかなワールドをつくったり<br />
-便利なギミックをつくったり　不思議なシェーダーを書いたり して<br />
-思い思いの表現の場になってます</p>
+    来場者の方からは
+      「やってみたいことが増えた」
+      「求めていたものが詰まった一冊を見つけた」
+    といったお声をいただき
 
-<p>しかし この表現のための技術<br />
-各々でノウハウを持っていて 方法を探すのは難しかったりします</p>
-<br />
+    出展者の方からは
+      「書くきっかけになった」
+      「予想外の数手に取ってもらえた」
+    との言葉をいただき おかげさまで好評のうちに終えることができました
 
-<p>例えば<br />
-ワールドのライティングを どうすればもっと雰囲気がでるのか<br />
-アバターの変身アニメーションって どうつくってるのか<br />
-シェーダーのアクセサリーを作るには なにから勉強すればいいのか</p>
 
-<p>少し調べればわかる というものもあれば<br />
-頑張って調べてもさっぱり分からないものもあります</p>
-<br />
+    開催してからしばらく経ちました
+    その間にVRChatには当時存在しなかった技術が新たに生まれてきました
 
-<p>そのノウハウを持っている人に聞きに行くと<br />
-親切に教えてくれる人がたくさんいるすばらしい界隈ですし<br />
-試行錯誤して手に入れたノウハウを個人的な武器として使うのも<br />
-もちろん良いと思うのですが</p>
-<br />
+    特筆すべきはUDONとAvatars 3.0
+    VRChatで可能なことがさらに広がり、今までできなかった表現や新たなギミックやゲーム性を持ったワールドもどんどんと増えてきています
 
-<p>単に文章に残す機会がなくて技術を溜め込んでいる方や<br />
-ノウハウを共有して同士の民を増やしたい人もきっといるはず</p>
 
-<p>そして　私はそんな人達が書いたVRChatの技術同人誌を読みたい！</p>
-<br />
 
-<p>ということで 今回<br />
-<StrongVRCTech>VRChatの技術同人誌即売会「VRC技術市」</StrongVRCTech>を開催することにしました</p>
+    しかしながら、新たな要素を学ぶのはどんどん難しくなっています
 
-<br />
-<p>出展するためのルールは ひとつだけ<br />
-<Strong>VRChatに関係のある技術同人誌</Strong>であること</p>
+    SDK3は日々更新され新たなAPIが加わる上に
+    Unityに関する深い知識やプログラミング能力が前提条件として必要になりはじめました
 
-<p>申し訳ありませんが　アバターやアクセサリーそのものでの出展はできません<br />
-またVRChatで利用できない自作スクリプトやUnity2019機能紹介本もご遠慮させていただきます</p>
+    もちろん少し調べればわかる というものもあります
+    初心者向けの記事を書いてくださる方のおかげで、初歩段階のものは手順通り行えば アップロードまでできるようになってきています
 
-<p>ただし　<Strong>VRChatに関連する技術であれば何でもOK</Strong><br />
-アバターの改変　ワールドのライティング設定　自作シェーダーの解説<br />
-VRChatのためのUnityツールの作り方　初心者がアップロードやってみた本<br />
-などなど</p>
-<br />
+    しかし少し込み入ったことをしようとすると そもそもどこから調べればいいかすらさっぱり分からない……
 
-<p>VRCの住人が試したくなる同人誌<br />
-Visitorな人の助けになる本<br />
-同士の民と技術交流するための魔導書<br /><br />
-そんな同人誌をぜひお書きいただきたいのです</p>
-<br />
-<br />
+    そんな技術に関する複雑な知識をまとめ、書き記す人が増えてほしい
+    実現方法が広まって楽しいワールドがさらに増えてほしい
+    そしてなにより、私が知りたい
 
-<p>今回　みなさんに同人誌の作成に専念していただくため<br />
-<Strong>Web入稿</Strong>を採用しました</p>
-<br />
 
-<p>見本誌(A4:PDF) と お品書き(JPG:1280×720) を用意して<br />
-ブラウザ経由でアップロードするだけ</p>
 
-<p>Webから入稿すると<br />
-各ブースに 表紙がポスターに おしながきがコミケの敷布のように<br />
-テーブルの上に見本誌が置かれます</p>
+    そんなわけで
+    VRChatの技術同人誌即売会「 `}
+    <StrongVRCTech>VRC技術市Ⅱ</StrongVRCTech>
+    {` 」を開催することにしました
 
-<p>Unityも開かずに入稿できるようにしています<br />
-テーブルの上に見本の小物を置きたいという方も対応できますので相談ください</p>
-<br />
-<s>
-<p>そして 出展申込みの締切は現在<Strong>11月30日</Strong>を予定しています</p>
+    そこで VRChatで使える技術を持った方にお願いがあります
+    このイベントを通じて `}
+    <StrongVRCTech>持てる知識を詰め込んだ1冊の技術書</StrongVRCTech>
+    {` をつくっていただきたいのです
 
-<p>それまでに VRChatのUnity2018対応が終わってるだろう という目測の締切です<br />
-もし 11月20日までにUnity2018対応が来なかった場合は 締切を延長します</p>
-</s>
+    出展するためのルールは ひとつだけ
+    `}
+    <Strong>VRChatに関係のある技術同人誌</Strong>
+    {` であること
 
-<p><StrongVRCTech>※ 締切が2019年 12月8日(日) まで延長されました</StrongVRCTech></p>
+    ・ アバターの改変
+    ・ ワールドのライティング設定
+    ・ 自作シェーダーの解説
+    ・ VRChatのためのツールの作り方
+    ・ UDONやAvatars3.0取扱説明書 といったものだけでなく
+    ・ アバター展示会を開催するためのノウハウ
+    ・ ブース出展のドローコールを下げるコツ
+    ・ UDONワールドを外部ゲームとして販売した体験記
+    ・ etc……
+    
+    VRChatに関係する技術であればなんでもOK
 
-<p>ギミックが2018でも動くか不安という方もぜひ出展をご検討ください</p>
-<br />
+    VRCの住人が試したくなる同人誌
+    Visitorな人の助けになる本
+    同士の民と技術交流するための魔導書
+    そんな同人誌をぜひお書きいただきたいのです
 
-<p>肝心の開催日は<StrongVRCTech>2020年2月15日～16日</StrongVRCTech><br />
-場所はもちろん VRChat</p>
 
-<p>入稿締切は1月末から2月初めを予定してます<br />
-2018対応の荒波を超え コミケが終わったあと</p>
 
-<p>ゆっくりできるお正月休みのタイミングで 書き始められるスケジュールです</p>
-<br />
+    なるべく同人誌の作成に専念していただくため
+    今回も `}
+    <Strong>Web入稿</Strong>
+    {` を用意し、Unityを開かずに会場へ反映されるようにしています
 
-<p>VRChatの同人誌はコミケや技術書典で探してもごくわずか<br />
-また まとまった情報はWeb上にも多くはありません</p>
+    入稿は `}
+    <Strong>見本誌</Strong>
+    {` と `}
+    <Strong>お品書き</Strong>
+    {` を用意して `}
+    <Strong>ブラウザからアップロード</Strong>
+    {` するだけ
+    アップロード後 数分でテストワールドに反映されるので 確認や微調整もスムーズに行えます
+    `}
+    <Image />
+    {`
 
-<p>このVRC技術市で情報の共有がさらに活発になって<br />
-新たな技術や新たなクリエイターが生まれ<br />
-VRPillも驚く新しいなにかが生まれてくる未来を夢想しています</p>
-<br />
 
-<p>そんな未来を実現する鍵は VRChatに関する技術を持ってるあなたです</p>
-<p>すこしでも興味を持ったなら ぜひ下のボタンから申込みしてみてください</p>
-<br />
+    同人誌をつくるのが初めてで不安……という方向けに
+    無料のWebサービスだけで入稿物を用意する動画も公開しています
 
-<JoinButton />
-<br />
+    `}
+    <DraftVideos />
+    {`
 
-<p>正直すごくニッチで 応募者がどれだけいるかもわからないイベントですが<br />
-それでも きっと何かは ここからはじまるはずです</p>
-<br />
+    出展申込の締切は `}
+    <Strong>12月20日（日）</Strong>
+    {`
+    そして、入稿締切は開催1週間前を予定してます
+    年末年始のお正月休みのタイミングで ゆっくり書き始められるスケジュールです
 
-<Signature>みみんく (
-  <a href="https://twitter.com/mmnk_vt"
-    target="_blank"
-    rel="external noopener noreferrer">
-      @mmnk_vt
-  </a>
-  )
-</Signature>
-<br />
-<br />
+    開催日は `}
+    <Strong>2021年2月20日（土）～21日（日）</Strong>
+    {` 
+    場所はもちろん VRChat
+    PCVR向けのワールドとなる予定ですが Quest対応も可能な限り行っていきます
 
-<p>追伸</p>
-<p>しかし・・・どんな技術同人誌が並べられるのか<br />
-想像するだけでワクワクしませんか？</p>
 
+
+    今回も技術同人誌のイベントのため アバターやアクセサリーそのものを入稿することはできません
+    またVRChatで利用できないアセットやUnity2020でしか使えない機能を主軸とした本もご遠慮ください
+    そして可能性は低いですが、申込が想定以上に多くなった場合 出展者数を制限する可能性がありますことをご了承ください
+
+
+
+    もしVRChatの中で「それどうやってるの？」と 聞かれた経験があるならそれを書いてみてください
+
+    VRCの住人が試したくなる技術の紹介
+    これまで作ったものの技術解説と裏話
+    もしくは 技術を高め磨きあうための魔導書染みた一冊
+    そんな同人誌に出会うことを楽しみにしています
+
+    すこしでも興味を持ったなら ぜひ下のボタンをクリックして申込をお願いします
+    `}
+    <Signature>みみんく (
+      <a href="https://twitter.com/mmnk_vt"
+        target="_blank"
+        rel="external noopener noreferrer">
+          @mmnk_vt
+      </a>
+      )
+    </Signature>
+
+
+    <JoinButton />
+    {`
+
+    `}
+    <Strong>追伸</Strong>
+    {`
+    「あのことについてなら ちょっとは書けるかも？」
+    もし 少しでもそう感じましたら ぜひ上のボタンをお申込みください
+
+    技術を持っている人はいても 書こうとする人は100人に1人いるかどうか
+    そのやり方を知っていて、同人誌にまとめようとする人、しかも日本語で、となると世界に1人しかいない可能性も十分あります
+
+    前回開催時は「初めて同人誌を書いた」という方は おおよそ半分ほど
+    読み応えのあるデビュー作や 知識の詰まった同人誌が並んだ光景を`}
+    <a href="https://www.vrchat.com/home/launch?worldId=wrld_3a71aacd-b494-401f-a31b-da9735708d57"
+        target="_blank"
+        rel="external noopener noreferrer">
+          前回のイベント会場
+    </a>
+    {`で見ることができます
+
+    必要なのは文章力よりも、書いてみたいという気持ち
+    その気持ちさえあれば大歓迎です
+
+    あなたが知ってる 私の知らない世界やコアな知識を存分に語ってくれる一冊
+    そんな同人誌を心よりお待ちしております
+
+    `}
   </RecruitTextArea>
 ))
 export default RecruitText;
 
 const RecruitTextArea = styled.div`
   && {
+    white-space: pre-line;
     text-align: left;
-    width: 80%;
-    max-width: 960px;
+    width: 100%;
+    max-width: 800px;
     margin: 1rem auto 3rem;
-    padding: 2rem 2rem 3rem 2rem;
-    font-size: 1.2rem;
     background: rgba(255, 255, 255, .1);
     border-radius: 5px;
-    line-height: 1.5;
+    line-height: 2;
+    box-sizing: border-box;
+
+    ${media.lessThan("medium")`
+      padding: 2rem 0.5rem 3rem;
+      font-size: 1rem;
+    `}
+    ${media.greaterThan("medium")`
+      padding: 2rem 2rem 3rem 2rem;
+      font-size: 1.2rem;
+    `}
   }
   a {
     color: #26B6FF;
@@ -164,11 +212,86 @@ const Strong = styled.span`
     font-weight: 600;
     font-size: 1.2em;
     text-shadow: 0 0 4px #000000;
-    text-decoration: underline;
   }
 `;
 const Signature =styled.p`
   && {
     text-align: right;
+  }
+`;
+
+const Image = () => (
+  <img
+    width="800"
+    height="400"
+    style={{ width: '100%', height: 'auto' }}
+    src="/img/draft-image.png"
+    alt="見本誌とお品書きをアップロードするだけの入稿" />
+);
+const DraftVideos = () => (
+  <ImgFlex>
+    <Link href="https://www.youtube.com/watch?v=E_SFXeVr4YE">
+      <StyledImg
+        style={{ width: '100%', height: 'auto' }}
+        width="1280"
+        height="720"
+        src="/img/59.jpg"
+        alt="技術同人誌のつくりかた" />
+    </Link>
+    <Link href="https://www.youtube.com/watch?v=D1PWI_b8wN0">
+      <StyledImg
+        style={{ width: '100%', height: 'auto' }}
+        width="1280"
+        height="720"
+        src="/img/60.jpg"
+        alt="お品書きのつくりかた" />
+    </Link>
+  </ImgFlex>
+);
+
+const Link = ({ href, style, children }: { href: string, style: any, children: React.Children }) => (
+  <a
+    style={style}
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer">
+    {children}
+  </a>
+);
+
+const StyledImg = styled.img`
+  && {
+    box-shadow: 0 0 16px #ffffff, 0 0 4px #26B6FF;
+    border-radius: 8px;
+  }
+  &&:hover, &&:active {
+    box-shadow: none;
+    transform: translate(1px, 1px);
+    filter: brightness(0.75);
+  }
+  &&:active {
+    filter: brightness(0.5);
+  }
+`;
+
+const ImgFlex = styled.div`
+  && {
+    display: flex;
+    justify-content: space-between;
+
+    ${media.lessThan("medium")`
+      flex-direction: column;
+    `}
+  }
+  && > a {
+    height: auto;
+
+    ${media.lessThan("medium")`
+      width: 90%;
+      margin: auto;
+    `}
+    ${media.greaterThan("medium")`
+      width: 45%;
+    `}
   }
 `;

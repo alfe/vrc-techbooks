@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const JoinButton = React.memo(() => (
   <Button
-    href="https://docs.google.com/forms/d/e/1FAIpQLSdAuuvPtfgFg96LaRylvWInm5mHalduzdAT_jo7aR-nsolCqA/viewform"
+    href="https://docs.google.com/forms/d/e/1FAIpQLScZL8VvZQPWrWVXNhrZwyHAIxBr11E9BY7Ty0TpyOJrwfB4Qg/viewform"
     target="_blank"
     rel="external noopener noreferrer">
       参加申込

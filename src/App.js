@@ -20,7 +20,9 @@ export default function App() {
         'page_path': location.pathname
       });
     });
-    LogRocket.init('98yupe/vrc-tech2');
+    if (window.location.hostname !== 'localhost') {
+      LogRocket.init('98yupe/vrc-tech2');
+    }
   });
 
   return (

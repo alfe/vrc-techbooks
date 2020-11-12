@@ -15,14 +15,26 @@ const NonLoginView = () => (
       <h1>VRC技術市</h1>
       <h2>VRChat技術の同人誌イベント</h2> 
       <DaysArea>
-        coming soon...
+        <p>
+          <span className="label">開催 : </span>
+          2021<span>年 </span>
+          2<span>月</span>
+          20<span>日(土)・</span>
+          21<span>日(日)</span>
+        </p>
+        <p>
+          <span className="label">出展申込締切 : </span>
+          2020<span>年 </span>
+          12<span>月</span>
+          20<span>日(日)</span>
+        </p>
       </DaysArea>
       {process.env.REACT_APP_RECRUITMENT === 'true' && (
         <React.Fragment>
           <Flex>
             <JoinButton />
           </Flex>
-          <h3>VRChat技術者へ、 お願いがあります。</h3>
+          <CopyText>VRChat技術者へ、 お願いがあります。</CopyText>
           <RecruitText />
         </React.Fragment>
       )}
@@ -30,6 +42,19 @@ const NonLoginView = () => (
   </NonLoginViewArea>
 )
 export default NonLoginView;
+
+const CopyText = styled.h3`
+  && {
+    ${media.lessThan("medium")`
+      font-size: 1.8em  ;
+      margin: 3rem auto 0;
+    `}
+    ${media.greaterThan("medium")`
+      font-size: 2.5em;
+      margin: 3rem auto 0;
+    `}
+  }
+`;
 
 const TwoLogo = styled.div`
   && {
@@ -51,7 +76,7 @@ const TwoLogo = styled.div`
   `}
   ${media.greaterThan("medium")`
     width: 45rem;
-    margin-top: 8rem;
+    margin-top: 4rem;
   `}
 `;
 const NonLoginViewArea = styled.div`
@@ -62,7 +87,6 @@ const NonLoginViewArea = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    font-size: calc(10px + 2vmin);
     color: white;
   }
 `;
@@ -93,26 +117,40 @@ const InfoArea = styled.div`
   `}
 `;
 const DaysArea = styled.div`
-  &&{
+  && {
     ${media.lessThan("medium")`
       width: 16rem;
     `}
     ${media.greaterThan("medium")`
-      width: 28rem;
+      width: 30rem;
     `}
     margin: 0 auto;
-    font-size: 1.3em;
-    font-family: monospace;
+    font-size: 1.4em;
   }
   p {
-    font-size: 0.7em;
-    margin: .5rem 0;
+    margin: .5rem auto;
     text-align: left;
-    color: #AAA;
   }
   span {
-    font-size: 0.7em;
     color: #AAA;
+    ${media.lessThan("medium")`
+      font-size: 0.5em;
+    `}
+    ${media.greaterThan("medium")`
+      font-size: 0.7em;
+    `}
+  }
+  span.label {
+    padding: 0 0.5em;
+    ${media.lessThan("medium")`
+      text-align: left;
+      display: block;
+    `}
+    ${media.greaterThan("medium")`
+      text-align: right;
+      width: 8em;
+      display: inline-block;
+    `}
   }
 `;
 const Flex = styled.div`
