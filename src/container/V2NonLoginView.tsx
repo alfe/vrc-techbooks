@@ -8,7 +8,7 @@ import RecruitText from '../component/RecruitText';
 import '../App.css';
 
 const NonLoginView = () => (
-  <NonLoginViewArea>    
+  <NonLoginViewArea>
     <TwoLogo><span>Ⅱ</span></TwoLogo>
     <RotationLogo />
     <InfoArea>

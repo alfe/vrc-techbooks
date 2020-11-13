@@ -249,9 +249,8 @@ const DraftVideos = () => (
   </ImgFlex>
 );
 
-const Link = ({ href, style, children }: { href: string, style: any, children: React.Children }) => (
+const Link = ({ href, children }: { href: string, children: React.ReactNode }) => (
   <a
-    style={style}
     href={href}
     target="_blank"
     rel="noopener noreferrer">
