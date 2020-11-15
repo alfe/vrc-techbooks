@@ -24,6 +24,7 @@ const Button =styled.a`
     text-decoration: solid;
     text-shadow: 0 0 8px #022442;
     transition: 0.1s;
+    z-index: 100;
   }
   &&:hover {
     box-shadow: 1px 1px 4px #333;
