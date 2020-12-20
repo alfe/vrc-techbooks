@@ -1,7 +1,9 @@
 import React from 'react'
-import { getUserList } from '../config';
+import { getUserList, providerTwitter, createUserData } from '../config';
 import styled from 'styled-components'
+import LoginGate from './LoginGate'
 
+window.createUserData = createUserData;
 const requestImg = (index, twitterId) => {
   const imgUrl = `https://firebasestorage.googleapis.com/v0/b/vrc-techbooks.appspot.com/o/${twitterId}%2F${twitterId}-${index}.png?alt=media`;
   console.log(imgUrl);
@@ -26,12 +28,18 @@ const requestImg = (index, twitterId) => {
 
 const Config = React.memo(() => {
   const [list, setlist] = React.useState([]);
+  React.useEffect(() => {
+    if (sessionStorage.getItem('username')) {
+      getUserList(setlist)
+    }
+  }, []);
   const onClick = (twitterId, totalPages) => {
     const page = totalPages/2 < 8 ? Math.floor(totalPages/2) : 8;
     requestImg(page, twitterId);
   };
-  if (list.length === 0) {
-    getUserList(setlist)
+  
+  if (!sessionStorage.getItem('username')) {
+    return (<LoginGate onClick={() => providerTwitter(() => {window.location.reload()})} />);
   }
   return (
     <ConfigArea>

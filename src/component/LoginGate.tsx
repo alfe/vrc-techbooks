@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const LoginGate = ({ onClick }) => (
+const LoginGate = ({ onClick }: { onClick: () => void}) => (
   <LoginGateArea>
     <h2>VRC技術市 出展者用アップローダ</h2>
     <button

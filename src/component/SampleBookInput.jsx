@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import pdfjsLib from 'pdfjs-dist'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,7 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { updateStore, uploadStorage } from '../config';
+import { uploadStorage } from '../config';
+import lib from './sampleBookLib';
 
 (typeof window !== 'undefined' ? window : {}).pdfjsWorker =
   require('pdfjs-dist/build/pdf.worker');
@@ -30,125 +30,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
+const FIREBASE_ROOT = `${process.env.REACT_APP_FIREBASE_STORAGE_URL}v2%2F`
 
-export default {}
-const readFileAsync = async (file) => {
-  if (!file) return;
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      resolve(reader.result)
-    }
-    reader.onerror = reject
-    reader.readAsArrayBuffer(file)
-  })
-};
-const renderToPreview = async (fileData, canvasRef, pageNum = 1) => {
-  const pdf = await pdfjsLib.getDocument({ data: fileData, cMapUrl: '/cmaps/', cMapPacked: true }).promise
-  if (pdf.numPages < pageNum) return;
-  const page = await pdf.getPage(pageNum)
-  const canvas = canvasRef.current
-  await page.render({
-    canvasContext: canvas.getContext('2d'),
-    viewport: page.getViewport({ scale: 2.09 }),
-    transform: [1, 0, 0, 1, 0, 0],
-  }).promise
-}
-
-const renderCoverToCanvas = async (fileData, canvasRef, num) => {
-  const pdf = await pdfjsLib.getDocument({ data: fileData, cMapUrl: '/cmaps/', cMapPacked: true }).promise
-  // 1ページ目をcanvasにレンダリング
-
-  const page = await pdf.getPage(1)
-  const canvas = canvasRef.current
-  await page.render({
-    canvasContext: canvas.getContext('2d'),
-    viewport: page.getViewport({ scale: 2.09 }),
-    transform: [1, 0, 0, 1, 0, 0],
-  }).promise
-  window.setTimeout(async () => {
-    uploadImage({ canvas, num, page: 'cover' })
-    if (!sessionStorage.PosterSubmittedAt) {
-      uploadImage({ canvas, page: 'poster' })
-      await await updateStore({ PosterSubmittedAt: new Date().toLocaleString() })
-    }
-  }, 1500);
-}
-
-// Canvasへコンテンツ（表紙以外）書き込み
-const renderMainToCanvas = async (fileData, num, canvasRef, setTotalPages, setPage, successCallback) => {
-  const pdf = await pdfjsLib.getDocument({ data: fileData, cMapUrl: '/cmaps/', cMapPacked: true }).promise
-  const canvas = canvasRef.current
-  const canvasContext = canvas.getContext('2d')
-  const renderAndUpload = async (page) => {
-    setPage(page)
-    if (page > pdf.numPages) {
-      await updateStore({
-        [`PDF${num || ''}SubmittedAt`]: new Date().toLocaleString(),
-        [`totalPages${num || ''}`]: pdf.numPages,
-      })
-      sessionStorage.setItem(`PDF${num || ''}SubmittedAt`, new Date().toLocaleString())
-      sessionStorage.setItem(`totalPages${num || ''}`, pdf.numPages)
-      alert("アップロードが完了しました")
-      if (successCallback) successCallback()
-      return
-    }
-    renderPageToCanvas(pdf, page, canvasRef, canvasContext); // 左ページ
-    window.setTimeout(() => {
-      renderPageToCanvas(pdf, page + 1, canvasRef, canvasContext, true) // 右ページ
-      window.setTimeout(() => {
-        uploadImage({ canvas, num, page: page/2, successCallback: () => {
-          renderAndUpload(page + 2)
-        }})
-      }, 1500);
-    }, 1500);
-  }
-  setTotalPages(pdf.numPages)
-  renderAndUpload(2)
-}
-
-// Canvasへページ書き込み
-const renderPageToCanvas = async (pdf, pageNum, canvasRef, canvasContext, isRight) => {
-  if (pageNum > pdf.numPages) return
-  const page = await pdf.getPage(pageNum)
-  const viewport = page.getViewport({ scale: 2.09 })
-  return await page.render({
-    canvasContext,
-    viewport,
-    transform: [1, 0, 0, 1, isRight ? 1240 : 0, 0],
-    background: isRight ? 'transparent' : '#FFFFFF',
-  }).promise
-}
-
-// GCPへのアップロード
-const uploadImage = ({ canvas, num, page, successCallback }) => {
-  // canvasにレンダリングされた画像をファイル化
-  const base64 = canvas.toDataURL('image/png')
-  const tmp = base64.split(',')
-  const data = atob(tmp[1])
-  const mime = tmp[0].split(':')[1].split(';')[0]
-  const buf = new Uint8Array(data.length);
-  const username = sessionStorage.getItem('username');
-  for (let i = 0; i < data.length; i++) {
-    buf[i] = data.charCodeAt(i)
-  }
-  const blob = new Blob([buf], { type: mime })
-  const imageName = `${username}${!num?'':`-${num}`}-${page}.png`
-  const imageFile = new File([blob], imageName, { lastModified: new Date().getTime() })
-  uploadStorage(imageFile, imageName, successCallback)
-}
-
-// アップロード済みページのリストを作成
-const getimgurlList = (pages, num) => {
-  const resultlist = [];
-  const username = sessionStorage.getItem('username');
-  for (let index = 1; index < Math.ceil((pages - 1)/2 + 1); index++) {
-    resultlist.push(`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${username}%2F${username}${!num?'':`-${num}`}-${index}.png?alt=media`)
-  }
-  return resultlist;
-}
-
-export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
+const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
   const [pdfFile, setPdf] = React.useState(false)
   const [open, setOpen] = React.useState(false)
   const [modal, setModal] = React.useState(false)
@@ -163,22 +47,22 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
 
   const onChangeBook = async (e) => {
     if (!e.target.files[0]) return
-    const file = await readFileAsync(e.target.files[0])
+    const file = await lib.readFileAsync(e.target.files[0])
     setPdf(file)
-    renderToPreview(file, page1Ref, 1)
-    renderToPreview(file, page2Ref, 2)
-    renderToPreview(file, page3Ref, 3)
+    lib.renderToPreview(file, page1Ref, 1)
+    lib.renderToPreview(file, page2Ref, 2)
+    lib.renderToPreview(file, page3Ref, 3)
   }
   const onClickOpenUploadDialog = () => {
     setOpen(true)
-    renderToPreview(pdfFile, coverRef, 1)
-    renderToPreview(pdfFile, canvasRef, 2)
+    lib.renderToPreview(pdfFile, coverRef, 1)
+    lib.renderToPreview(pdfFile, canvasRef, 2)
   }
   const onSubmitToUpload = () => {
     setModal(true)
-    uploadStorage(pdfFile, `${username}${!num ? '' : `-${num}` }.pdf`)
-    renderCoverToCanvas(pdfFile, coverRef, num)
-    renderMainToCanvas(pdfFile, num, canvasRef, setTotalPages, setPage, () => {
+    uploadStorage(pdfFile, `${username}${!num ? '' : `-${num}` }.pdf`, 'pdf')
+    lib.renderCoverToCanvas(pdfFile, coverRef, num)
+    lib.renderMainToCanvas(pdfFile, num, canvasRef, setTotalPages, setPage, () => {
       setOpen(false)
       setModal(false)
       setPage(0)
@@ -201,8 +85,8 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
         {!pdfFile && PDFSubmittedAt && (
           <React.Fragment>
             <CanvasBox>
-              <img src={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${username}%2F${username}${!num?'':`-${num}`}-cover.png?alt=media`} alt="cover.png"/>
-              {getimgurlList(uploadedPages, num).map((url, i) => (
+              <img src={`${FIREBASE_ROOT}cover%2F${sessionStorage.getItem('username')}-cover.png?alt=media`} alt="cover.png"/>
+              {lib.getImgUrlList(uploadedPages, num).map((url, i) => (
                 <img key={`imgurl-${url}`} src={url} alt={`${i}.png`}/>
               ))}
             </CanvasBox>
@@ -264,6 +148,7 @@ export const SampleBookInput = ({ num='', PDFSubmittedAt, uploadedPages }) => {
     </React.Fragment>
   );
 }
+export default SampleBookInput;
 
 const BoxInput = styled.div`
   && {

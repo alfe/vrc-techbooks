@@ -19,7 +19,9 @@ const Header = () => {
         )}
       </div>
       <div>
-        <SwitchVersion />
+        {(!window.location.pathname.includes('users')) && (
+          <SwitchVersion />
+        )}
         {/* <HeaderItem href="/users" alt="出展者入口">出展者入口</HeaderItem> */}
       </div>
     </header>
