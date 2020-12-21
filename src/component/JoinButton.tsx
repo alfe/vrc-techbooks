@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 const JoinButton = React.memo(() => (
   <Button
-    href="https://docs.google.com/forms/d/e/1FAIpQLScZL8VvZQPWrWVXNhrZwyHAIxBr11E9BY7Ty0TpyOJrwfB4Qg/viewform"
-    target="_blank"
-    rel="external noopener noreferrer">
+    // href="https://docs.google.com/forms/d/e/1FAIpQLScZL8VvZQPWrWVXNhrZwyHAIxBr11E9BY7Ty0TpyOJrwfB4Qg/viewform"
+    // target="_blank"
+    // rel="external noopener noreferrer"
+    >
       参加申込
   </Button>
 ))
@@ -13,9 +14,11 @@ export default JoinButton;
 
 const Button =styled.a`
   && {
-    color: #FFFFFF;
+    color: #a3a3a3;
+    /* color: #FFFFFF; */
     font-size: 2rem;
-    background: #26B6FF;
+    background: #4d4d4d;
+    /* background: #26B6FF; */
     text-align: center;
     display: block;
     padding: 1rem;
@@ -26,7 +29,7 @@ const Button =styled.a`
     transition: 0.1s;
     z-index: 100;
   }
-  &&:hover {
+  /* &&:hover {
     box-shadow: 1px 1px 4px #333;
     transform: translate(1px, 4px);
     transition: 0.1s;
@@ -34,5 +37,5 @@ const Button =styled.a`
   &&:active {
     background: #022442;
     transition: 0.1s;
-  }
+  } */
 `;

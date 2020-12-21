@@ -34,6 +34,7 @@ const NonLoginView = () => (
           <Flex>
             <JoinButton />
           </Flex>
+          <p style={{marginTop: '-2rem'}}>締め切りました。後日参加者へメールを送付します。</p>
           <CopyText>VRChat技術者へ、 お願いがあります。</CopyText>
           <RecruitText />
         </React.Fragment>
