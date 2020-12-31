@@ -1,5 +1,13 @@
 import { updateStore, uploadStorage } from '../config';
-import pdfjsLib from 'pdfjs-dist'
+
+(typeof window !== 'undefined' ? window : {}).pdfjsWorker =
+  require('pdfjs-dist/build/pdf.worker');
+
+console.log(window.pdfjsLib)  
+const pdfjsLib = window.pdfjsLib;
+pdfjsLib.cMapUrl = "cmaps/";
+pdfjsLib.cMapPacked = true;
+
 
 // ファイル読み込み
 const readFileAsync = async (file) => {
@@ -15,15 +23,17 @@ const readFileAsync = async (file) => {
 };
 // ファイルプレビュー表示
 const renderToPreview = async (fileData, canvasRef, pageNum = 1) => {
-  const pdf = await pdfjsLib.getDocument({ data: fileData, cMapUrl: '/cmaps/', cMapPacked: true }).promise
-  if (pdf.numPages < pageNum) return;
-  const page = await pdf.getPage(pageNum)
-  const canvas = canvasRef.current
-  await page.render({
-    canvasContext: canvas.getContext('2d'),
-    viewport: page.getViewport({ scale: 2.09 }),
-    transform: [1, 0, 0, 1, 0, 0],
-  }).promise
+  console.log(pdfjsLib)
+  pdfjsLib.getDocument({ data: fileData, cMapUrl: '/cmaps/', cMapPacked: true }).promise.then(async (pdf) => {
+    if (pdf.numPages < pageNum) return;
+    const page = await pdf.getPage(pageNum)
+    const canvas = canvasRef.current
+    await page.render({
+      canvasContext: canvas.getContext('2d'),
+      viewport: page.getViewport({ scale: 2.09 }),
+      transform: [1, 0, 0, 1, 0, 0],
+    }).promise
+  })
 }
 
 // GCPへのアップロード

@@ -14,9 +14,6 @@ import Fade from '@material-ui/core/Fade';
 import { uploadStorage } from '../config';
 import lib from './sampleBookLib';
 
-(typeof window !== 'undefined' ? window : {}).pdfjsWorker =
-  require('pdfjs-dist/build/pdf.worker');
-
 const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',
