@@ -4,27 +4,28 @@ import styled from 'styled-components'
 import LoginGate from './LoginGate'
 
 window.createUserData = createUserData;
-const requestImg = (index, twitterId) => {
-  const imgUrl = `https://firebasestorage.googleapis.com/v0/b/vrc-techbooks.appspot.com/o/${twitterId}%2F${twitterId}-${index}.png?alt=media`;
-  console.log(imgUrl);
+// const requestImg = (index, twitterId) => {
+//   const imgUrl = `https://firebasestorage.googleapis.com/v0/b/vrc-techbooks.appspot.com/o/${twitterId}%2F${twitterId}-${index}.png?alt=media`;
+//   console.log(imgUrl);
 
-  const a = document.createElement("a");
-  document.body.appendChild(a);
-  a.href = imgUrl;
-  a.download = `${twitterId}-${index}.png`;
-  a.click();
-  setTimeout(() => {
-    a.remove();
-    URL.revokeObjectURL(imgUrl);
-  }, 500);
-  if (index > 1) {
-    setTimeout(() => {
-      requestImg(index - 1, twitterId);
-    }, 2000);
-  } else {
-    console.log(`${twitterId}: end`)
-  }
-}
+//   const a = document.createElement("a");
+//   document.body.appendChild(a);
+//   a.href = imgUrl;
+//   a.download = `${twitterId}-${index}.png`;
+//   a.click();
+//   setTimeout(() => {
+
+//     a.remove();
+//     URL.revokeObjectURL(imgUrl);
+//   }, 500);
+//   if (index > 1) {
+//     setTimeout(() => {
+//       requestImg(index - 1, twitterId);
+//     }, 2000);
+//   } else {
+//     console.log(`${twitterId}: end`)
+//   }
+// }
 
 const Config = React.memo(() => {
   const [list, setlist] = React.useState([]);
@@ -33,10 +34,10 @@ const Config = React.memo(() => {
       getUserList(setlist)
     }
   }, []);
-  const onClick = (twitterId, totalPages) => {
-    const page = totalPages/2 < 8 ? Math.floor(totalPages/2) : 8;
-    requestImg(page, twitterId);
-  };
+  // const onClick = (twitterId, totalPages) => {
+  //   const page = totalPages/2 < 8 ? Math.floor(totalPages/2) : 8;
+  //   requestImg(page, twitterId);
+  // };
   
   if (!sessionStorage.getItem('username')) {
     return (<LoginGate onClick={() => providerTwitter(() => {window.location.reload()})} />);
@@ -68,7 +69,7 @@ const Config = React.memo(() => {
             <td>{!item.MenuSubmittedAt ? '' : item.MenuSubmittedAt.slice(5,9)}</td>
             <td>{!item.PosterSubmittedAt ? '' : item.PosterSubmittedAt.slice(5,9)}</td>
             <td>{!item.PDFSubmittedAt ? '' : item.PDFSubmittedAt.slice(5,9)}</td>
-            <td><a href="#" onClick={() => onClick(item.twitterId, item.totalPages)}>{item.totalPages}</a></td>
+            <td>{item.totalPages}</td>
             <td>{!item.totalPages ? '' : <a href={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${item.twitterId}%2F${item.twitterId}-cover.png?alt=media`} >img</a>}</td>
             <td>{!item.boothURL ? '' : <a href={item.boothURL}>url</a>}</td>
             <td>{item.boothNo}</td>

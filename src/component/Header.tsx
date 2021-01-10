@@ -36,9 +36,12 @@ const SwitchVersion = () => {
       <HeaderSwitchVersion href="/"><span className="hm">VRC技術市</span>Ⅱ</HeaderSwitchVersion>
     );
   }
-  return (
-    <HeaderSwitchVersion href="/v1/"><span className="hm">VRC技術市</span>Ⅰ</HeaderSwitchVersion>
-  );
+  if (window.location.pathname === '/') {
+    return (
+      <HeaderSwitchVersion href="/v1/"><span className="hm">VRC技術市</span>Ⅰ</HeaderSwitchVersion>
+    );
+  }
+  return <div />
 };
 
 const HeaderSwitchVersion = styled.a`

@@ -73,7 +73,7 @@ const getMatchGenre = (genre, place) => {
     case 400000 < place: return genre.includes('gimmick');
     case 300000 < place: return genre.includes('shader');
     case 200000 < place: return genre.includes('tool');
-    case 100000 < place: return genre.includes('avater');
+    case 100000 < place: return genre.includes('avatar');
     default: return false;
   }
 }

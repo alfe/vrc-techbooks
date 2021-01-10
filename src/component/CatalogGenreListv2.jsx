@@ -6,9 +6,9 @@ const CatalogGenreList = ({ genre, setMatchGenre }) => {
   return (
     <GenreList>
       <GenreItem color='#EA4235' selected={genre.includes('avatar')} onClick={() => setMatchGenre('avatar')}>AVATAR</GenreItem>
-      <GenreItem color='#FBBC06' selected={genre.includes('tool')} onClick={() => setMatchGenre('tool')}>TOOL</GenreItem>
-      <GenreItem color='#34A752' selected={genre.includes('shader')} onClick={() => setMatchGenre('shader')}>SHADER</GenreItem>
-      <GenreItem color='#46BDC6' selected={genre.includes('gimmick')} onClick={() => setMatchGenre('gimmick')}>GIMMICK</GenreItem>
+      <GenreItem color='#FBBC06' selected={genre.includes('effect')} onClick={() => setMatchGenre('effect')}>EFFECT</GenreItem>
+      <GenreItem color='#34A752' selected={genre.includes('other')} onClick={() => setMatchGenre('other')}>OTHER</GenreItem>
+      <GenreItem color='#46BDC6' selected={genre.includes('udon')} onClick={() => setMatchGenre('udon')}>UDON</GenreItem>
       <GenreItem color='#7442F4' selected={genre.includes('world')} onClick={() => setMatchGenre('world')}>WORLD</GenreItem>
     </GenreList>
   );

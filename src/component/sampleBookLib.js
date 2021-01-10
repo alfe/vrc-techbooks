@@ -3,8 +3,7 @@ import { updateStore, uploadStorage } from '../config';
 (typeof window !== 'undefined' ? window : {}).pdfjsWorker =
   require('pdfjs-dist/build/pdf.worker');
 
-console.log(window.pdfjsLib)  
-const pdfjsLib = window.pdfjsLib;
+const pdfjsLib = window.pdfjsLib || {};
 pdfjsLib.cMapUrl = "cmaps/";
 pdfjsLib.cMapPacked = true;
 
@@ -23,7 +22,6 @@ const readFileAsync = async (file) => {
 };
 // ファイルプレビュー表示
 const renderToPreview = async (fileData, canvasRef, pageNum = 1) => {
-  console.log(pdfjsLib)
   pdfjsLib.getDocument({ data: fileData, cMapUrl: '/cmaps/', cMapPacked: true }).promise.then(async (pdf) => {
     if (pdf.numPages < pageNum) return;
     const page = await pdf.getPage(pageNum)

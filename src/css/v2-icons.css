@@ -1,0 +1,169 @@
+/*
+Icon classes can be used entirely standalone. They are named after their original file names.
+
+```html
+<i class="icon-home"></i>
+```
+*/
+.i-1103tetra {
+  background-image: url(/img/icons-v2.png);
+  background-position: 0px -50px;
+  width: 48px;
+  height: 48px;
+}
+.i-a3_yuu {
+  background-image: url(/img/icons-v2.png);
+  background-position: -50px -50px;
+  width: 48px;
+  height: 48px;
+}
+.i-clytie_vrchat {
+  background-image: url(/img/icons-v2.png);
+  background-position: -100px 0px;
+  width: 48px;
+  height: 48px;
+}
+.i-glintfraulein {
+  background-image: url(/img/icons-v2.png);
+  background-position: -100px -50px;
+  width: 48px;
+  height: 48px;
+}
+.i-hiyo_4tweeteco {
+  background-image: url(/img/icons-v2.png);
+  background-position: -100px -100px;
+  width: 48px;
+  height: 48px;
+}
+.i-yagihata4x {
+  background-image: url(/img/icons-v2.png);
+  background-position: -250px -50px;
+  width: 48px;
+  height: 48px;
+}
+.i-_cupofhappiness {
+  background-image: url(/img/icons-v2.png);
+  background-position: 0px 0px;
+  width: 48px;
+  height: 48px;
+}
+.i-_mew_ton {
+  background-image: url(/img/icons-v2.png);
+  background-position: -50px 0px;
+  width: 48px;
+  height: 48px;
+}
+.i-hidetobara {
+  background-image: url(/img/icons-v2.png);
+  background-position: 0px -100px;
+  width: 48px;
+  height: 48px;
+}
+.i-higashi_zum428 {
+  background-image: url(/img/icons-v2.png);
+  background-position: -50px -100px;
+  width: 48px;
+  height: 48px;
+}
+.i-kanonji {
+  background-image: url(/img/icons-v2.png);
+  background-position: -150px 0px;
+  width: 48px;
+  height: 48px;
+}
+.i-kurotori4423 {
+  background-image: url(/img/icons-v2.png);
+  background-position: -150px -50px;
+  width: 48px;
+  height: 48px;
+}
+.i-lowteq_vr {
+  background-image: url(/img/icons-v2.png);
+  background-position: -150px -100px;
+  width: 48px;
+  height: 48px;
+}
+.i-makihiro_vr {
+  background-image: url(/img/icons-v2.png);
+  background-position: 0px -150px;
+  width: 48px;
+  height: 48px;
+}
+.i-masaki_nire {
+  background-image: url(/img/icons-v2.png);
+  background-position: -50px -150px;
+  width: 48px;
+  height: 48px;
+}
+.i-miyakon2nd {
+  background-image: url(/img/icons-v2.png);
+  background-position: -100px -150px;
+  width: 48px;
+  height: 48px;
+}
+.i-mmnk_vt {
+  background-image: url(/img/icons-v2.png);
+  background-position: -150px -150px;
+  width: 48px;
+  height: 48px;
+}
+.i-momoandbanana22 {
+  background-image: url(/img/icons-v2.png);
+  background-position: -200px 0px;
+  width: 48px;
+  height: 48px;
+}
+.i-nazeru2 {
+  background-image: url(/img/icons-v2.png);
+  background-position: -200px -50px;
+  width: 48px;
+  height: 48px;
+}
+.i-noriben327 {
+  background-image: url(/img/icons-v2.png);
+  background-position: -200px -100px;
+  width: 48px;
+  height: 48px;
+}
+.i-nuwaa_vr {
+  background-image: url(/img/icons-v2.png);
+  background-position: -200px -150px;
+  width: 48px;
+  height: 48px;
+}
+.i-ogtonvr180426 {
+  background-image: url(/img/icons-v2.png);
+  background-position: 0px -200px;
+  width: 48px;
+  height: 48px;
+}
+.i-otoan010 {
+  background-image: url(/img/icons-v2.png);
+  background-position: -50px -200px;
+  width: 48px;
+  height: 48px;
+}
+.i-remiiiiiiit {
+  background-image: url(/img/icons-v2.png);
+  background-position: -100px -200px;
+  width: 48px;
+  height: 48px;
+}
+.i-sansuke05_vr {
+  background-image: url(/img/icons-v2.png);
+  background-position: -150px -200px;
+  width: 48px;
+  height: 48px;
+}
+.i-torgtaitai3 {
+  background-image: url(/img/icons-v2.png);
+  background-position: -200px -200px;
+  width: 48px;
+  height: 48px;
+}
+.i-wata_pj {
+  background-image: url(/img/icons-v2.png);
+  background-position: -250px 0px;
+  width: 48px;
+  height: 48px;
+}

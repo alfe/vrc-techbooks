@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default {}
-
 export const CoverInput = ({ uploaded, file, onChange }) => {
   const [preview, setPreview] = React.useState(uploaded || false);
   const onChangeFile = e => {

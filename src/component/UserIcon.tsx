@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { getPlaceColor } from './lib';
 
 type Props = {
-  index: string,
+  imgClass: string,
   place: number,
   rotate: number,
   height: number,
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const UserIcon = React.memo(({
-  index,
+  imgClass,
   place,
   rotate,
   height,
@@ -19,7 +19,7 @@ const UserIcon = React.memo(({
 }: Props) => {
   return (
     <UserIconBar rotate={rotate} height={height}>
-      <UserIconImg className={`icon-${index}`} place={place} rotate={rotate} onMouseEnter={onHover} />
+      <UserIconImg className={imgClass} place={place} rotate={rotate} onMouseEnter={onHover} />
     </UserIconBar>
   );
 });

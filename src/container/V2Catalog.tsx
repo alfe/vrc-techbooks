@@ -1,18 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
+import { getUserList } from '../config';
 import BoothDetail from '../component/BoothDetail';
-import CatalogGenreList from '../component/CatalogGenreList';
+import CatalogGenreList from '../component/CatalogGenreListv2';
 import UserIcon from '../component/UserIcon';
-import { getV1Data } from '../assets/v1data';
-import '../css/generated-icons.css';
+// import { getV1Data } from '../assets/v1data';
+import '../css/v2-icons.css';
 
-const WorldAlias = React.memo(() => {
-  const [list] = React.useState(getV1Data());
-  const [rotate] = React.useState(360/getV1Data().length);
-  const [height] = React.useState(42);
+const V2Catalog = React.memo(() => {
+  const [list, setList] = React.useState(['']);
+  const [rotate, setRotate] = React.useState(0);
+  const [height] = React.useState(40);
   const [selected, setSelect] = React.useState(0);
   const [genre, setGenre] = React.useState([]);
   const [zoom, setZoom] = React.useState(false);
+  React.useEffect(() => {
+    getUserList(setList);
+  }, []);
+  React.useEffect(() => {
+    setRotate(360/list.length);
+  }, [list]);
+
   const setMatchGenre = (gen) => {
     if (genre.includes(gen)) {
       const newGenre = genre.filter(n => n !== gen);
@@ -27,19 +35,21 @@ const WorldAlias = React.memo(() => {
         <div>
           {list.map((user, i) => (
             <UserIcon
-              key={`icon-${user.twitterId}`}
-              imgClass={`icon-${('0'+(i+1)).slice(-2)}`}
+              key={`i-${user.twitterId}`}
+              imgClass={`i-${user.twitterId}`}
               place={user.place}
               rotate={i * rotate}
               height={height}
-              onHover={() => setSelect(i)} />
+              onHover={() => setSelect(user.twitterId)} />
           ))}
         </div>
         {list.length !== 0 &&
           <CenterDetail zoom={zoom}>
             <BoothDetail
+              version={2}
               index={('0'+(selected+1)).slice(-2)}
-              data={list[selected]}
+              iconClass={`i-${selected}`}
+              data={list.filter(u => u.twitterId === selected)[0]}
               zoom={zoom}
               setZoom={setZoom} />
           </CenterDetail>
@@ -54,7 +64,9 @@ const WorldAlias = React.memo(() => {
           .map((user) => (
             <DetailItem key={`detail-${user.twitterId}`}>
               <BoothDetail
+                version={2}
                 index={('0'+(user.index+1)).slice(-2)}
+                iconClass={`i-${user.twitterId}`}
                 data={user} />
             </DetailItem>
           )
@@ -63,16 +75,16 @@ const WorldAlias = React.memo(() => {
     </WorldAliasArea>
   )
 });
-export default WorldAlias;
+export default V2Catalog;
 
-const getMatchGenre = (genre, place) => {
+const getMatchGenre = (genre: string[], place: number) => {
   if (genre.length === 0) return true;
   switch (true) {
-    case 500000 < place: return genre.includes('world');
-    case 400000 < place: return genre.includes('gimmick');
-    case 300000 < place: return genre.includes('shader');
-    case 200000 < place: return genre.includes('tool');
-    case 100000 < place: return genre.includes('avatar');
+    case 1000000 < place: return genre.includes('world');
+    case 900000 < place: return genre.includes('udon');
+    case 800000 < place: return genre.includes('other');
+    case 700000 < place: return genre.includes('effect');
+    case 600000 < place: return genre.includes('avatar');
     default: return false;
   }
 }
@@ -90,8 +102,8 @@ const WorldAliasCircle = styled.div`
     position: relative;
     background: #333333;
     border-radius: 50%;
-    width: 50rem;
-    height: 50rem;
+    width: 48rem;
+    height: 48rem;
     box-shadow: 0 0 8px #FFFFFF, 0 0 16px #FFFFFF;
     ${!isMobile ? '' : `
     zoom: ${window.outerWidth/900};
@@ -119,7 +131,7 @@ const CenterDetail = styled.div`
   && {
     position: absolute;
     left: calc(50% - 16.7rem);
-    top: ${p => p.zoom ? '1.5rem' : '15rem' };
+    top: ${p => p.zoom ? '1.4rem' : '14rem' };
     border-radius: 8px;
     box-shadow: 2px 2px 8px #999999;
     zoom: ${p => p.zoom ? 2 : 1 };

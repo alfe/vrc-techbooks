@@ -14,21 +14,26 @@ type Props = {
     hasMenu: boolean;
   };
   index: string;
+  version?: number;
+  iconClass?: string;
   zoom?: any;
   setZoom?: Function;
 };
 
-const BoothDetail = ({ data, index, zoom, setZoom }: Props) => {
-  const getImgUrl = (type) => `/img/booth-detail/${data.twitterId}-${type}.jpg`
+const BoothDetail = ({ data = {}, index, version, iconClass, zoom, setZoom }: Props) => {
+  const getImgUrl = (type: string) => {
+    if (version === 2 && type === 'poster') return `${process.env.REACT_APP_FIREBASE_STORAGE_URL}v2%2Fposter%2F${data.twitterId}-poster.png?alt=media`;
+    if (version === 2 && type === 'menu') return `${process.env.REACT_APP_FIREBASE_STORAGE_URL}v2%2Fmenu%2F${data.twitterId}-menu.png?alt=media`;
+    return `/img/booth-detail/${data.twitterId}-${type}.jpg`;
+  }
   return (
     <BoothBlock>
       <BoothTag place={data.place}>{getPlaceName(data.place)}</BoothTag>
       <div>
         <UserInfoArea>
           <div>
-            <i className={`icon-${index}`} />
+            <i className={iconClass || `icon-${index}`} />
             <span>{data.displayName}</span>
-            <BoothNo place={data.place}>{data.boothNo}</BoothNo>
           </div>
           <a href={`https://twitter.com/${data.twitterId}`} target="_blank" rel="noopener noreferrer">
             <img src={twitterLogo} alt={`@{data.twitterId}`} />
@@ -46,20 +51,6 @@ const BoothDetail = ({ data, index, zoom, setZoom }: Props) => {
   );
 }
 
-const BoothNo = styled.div`
-  && {
-    width: 4rem;
-    height: inherit;
-    padding: .5em;
-    line-height: 1;
-    border-radius: 3px;
-    background: ${p => getPlaceColor(p.place)};
-    color: #FFFFFF;
-    font-size: 0.8em;
-    font-weight: bold;
-    margin: 0 1rem;
-  }
-`;
 const ShopLinkButton = styled.a`
   && {
     text-decoration: none;

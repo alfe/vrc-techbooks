@@ -72,11 +72,16 @@ export const getUserList = async (successCallback) => {
   const db = firebase.firestore();
   const usersCollectionRef = db.collection(process.env.REACT_APP_DB_COLLECTION);
   return await usersCollectionRef.get().then((docs) => {
-    const userlist = docs.docs
+    const userList = docs.docs
       .map(doc => doc.data())
+      .map(data => ({
+        ...data,
+        hasPoster: !!data.PosterSubmittedAt,
+        hasMenu: !!data.MenuSubmittedAt,
+      }))
       .sort((a, b) => a.place - b.place);
-    if (successCallback) successCallback(userlist);
-    return userlist;
+    if (successCallback) successCallback(userList);
+    return userList;
   });
 };
 
