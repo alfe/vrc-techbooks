@@ -11,6 +11,7 @@ type Props = {
     boothNo: string;
     boothURL: string;
     hasPoster: boolean;
+    hasCover: boolean;
     hasMenu: boolean;
   };
   index: string;
@@ -24,6 +25,7 @@ const BoothDetail = ({ data = {}, index, version, iconClass, zoom, setZoom }: Pr
   const getImgUrl = (type: string) => {
     if (version === 2 && type === 'poster') return `${process.env.REACT_APP_FIREBASE_STORAGE_URL}v2%2Fposter%2F${data.twitterId}-poster.png?alt=media`;
     if (version === 2 && type === 'menu') return `${process.env.REACT_APP_FIREBASE_STORAGE_URL}v2%2Fmenu%2F${data.twitterId}-menu.png?alt=media`;
+    if (version === 2 && type === 'cover') return `${process.env.REACT_APP_FIREBASE_STORAGE_URL}v2%2Fcover%2F${data.twitterId}-cover.png?alt=media`;
     return `/img/booth-detail/${data.twitterId}-${type}.jpg`;
   }
   return (
@@ -40,7 +42,7 @@ const BoothDetail = ({ data = {}, index, version, iconClass, zoom, setZoom }: Pr
           </a>
         </UserInfoArea>
         <BoothImageArea zoom={zoom} onClick={() => setZoom && setZoom(!zoom)}>
-          <img src={!data.hasPoster ? '/null-poster.png' : getImgUrl('poster')} alt="poster" />
+          <img src={!data.hasPoster ? (!data.hasCover ? '/null-poster.png' : getImgUrl('cover')) : getImgUrl('poster')} alt="poster" />
           <img src={!data.hasMenu ? '/null-menu.png' : getImgUrl('menu')} alt="menu" />
         </BoothImageArea>
         <ShopLinkButton href={data.boothURL} disabled={!data.boothURL} alt="頒布場所" target="_blank" rel="noopener noreferrer">

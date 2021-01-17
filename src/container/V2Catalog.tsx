@@ -8,10 +8,22 @@ import UserIcon from '../component/UserIcon';
 import '../css/v2-icons.css';
 
 const V2Catalog = React.memo(() => {
-  const [list, setList] = React.useState(['']);
+  const [list, setList] = React.useState([{
+    'boothNo': "OFFICIAL",
+    'twitterId': "mmnk_vt",
+    'displayName': "みみんく",
+    'boothURL': "https://mmnk-vt.booth.pm/",
+    'hasCover': true,
+    'hasMenu': true,
+    'hasPoster': true,
+    'place': 0,
+    'MenuSubmittedAt': "2021/1/9 16:50:39",
+    'PDFSubmittedAt': "2021/1/9 16:45:36",
+    'PosterSubmittedAt': "2021/1/9 16:46:26",
+  }]);
   const [rotate, setRotate] = React.useState(0);
   const [height] = React.useState(40);
-  const [selected, setSelect] = React.useState(0);
+  const [selected, setSelect] = React.useState("mmnk_vt");
   const [genre, setGenre] = React.useState([]);
   const [zoom, setZoom] = React.useState(false);
   React.useEffect(() => {

@@ -77,6 +77,7 @@ export const getUserList = async (successCallback) => {
       .map(data => ({
         ...data,
         hasPoster: !!data.PosterSubmittedAt,
+        hasCover: !!data.PDFSubmittedAt,
         hasMenu: !!data.MenuSubmittedAt,
       }))
       .sort((a, b) => a.place - b.place);
