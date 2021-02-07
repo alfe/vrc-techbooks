@@ -29,27 +29,32 @@ const BoothDetail = ({ data = {}, index, version, iconClass, zoom, setZoom }: Pr
     return `/img/booth-detail/${data.twitterId}-${type}.jpg`;
   }
   return (
-    <BoothBlock>
-      <BoothTag place={data.place}>{getPlaceName(data.place)}</BoothTag>
-      <div>
-        <UserInfoArea>
-          <div>
-            <i className={iconClass || `icon-${index}`} />
-            <span>{data.displayName}</span>
-          </div>
-          <a href={`https://twitter.com/${data.twitterId}`} target="_blank" rel="noopener noreferrer">
-            <img src={twitterLogo} alt={`@{data.twitterId}`} />
-          </a>
-        </UserInfoArea>
-        <BoothImageArea zoom={zoom} onClick={() => setZoom && setZoom(!zoom)}>
-          <img src={!data.hasPoster ? (!data.hasCover ? '/null-poster.png' : getImgUrl('cover')) : getImgUrl('poster')} alt="poster" />
-          <img src={!data.hasMenu ? '/null-menu.png' : getImgUrl('menu')} alt="menu" />
-        </BoothImageArea>
-        <ShopLinkButton href={data.boothURL} disabled={!data.boothURL} alt="頒布場所" target="_blank" rel="noopener noreferrer">
-          頒布場所
-        </ShopLinkButton>
-      </div>
-    </BoothBlock>
+    <React.Fragment>
+      {typeof zoom !== 'undefined' && (
+        <BoothImageBk zoom={zoom}  onClick={() => setZoom && setZoom(false)}/>
+      )}
+      <BoothBlock>
+        <BoothTag place={data.place}>{getPlaceName(data.place)}</BoothTag>
+        <div>
+          <UserInfoArea>
+            <div>
+              <i className={iconClass || `icon-${index}`} />
+              <span>{data.displayName}</span>
+            </div>
+            <a href={`https://twitter.com/${data.twitterId}`} target="_blank" rel="noopener noreferrer">
+              <img src={twitterLogo} alt={`@{data.twitterId}`} />
+            </a>
+          </UserInfoArea>
+          <BoothImageArea zoom={zoom} onClick={() => setZoom && setZoom(!zoom)}>
+            <img src={!data.hasPoster ? (!data.hasCover ? '/null-poster.png' : getImgUrl('cover')) : getImgUrl('poster')} alt="poster" />
+            <img src={!data.hasMenu ? '/null-menu.png' : getImgUrl('menu')} alt="menu" />
+          </BoothImageArea>
+          <ShopLinkButton href={data.boothURL} disabled={!data.boothURL} alt="頒布場所" target="_blank" rel="noopener noreferrer">
+            頒布場所
+          </ShopLinkButton>
+        </div>
+      </BoothBlock>
+    </React.Fragment>
   );
 }
 
@@ -72,12 +77,14 @@ const ShopLinkButton = styled.a`
 `;
 const BoothBlock = styled.div`
   && {
+    position: relative;
     display: flex;
     width: 33.6rem;
     height: 20rem;
     background: #FFFFFF;
     border-radius: 8px;
     overflow: hidden;
+    z-index: 10;
   }
   && > div:last-of-type {
     width: 100%;
@@ -129,7 +136,17 @@ const UserInfoArea = styled.div`
     transform: translate(1px, 1px);
   }
 `;
-
+const BoothImageBk = styled.div`
+  display: ${p => p.zoom ? 'initial' : 'none'};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, .3);
+  z-index: 1;
+  cursor: zoom-out;
+`;
 const BoothImageArea = styled.div`
   && {
     display: flex;

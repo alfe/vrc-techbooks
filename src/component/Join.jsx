@@ -4,7 +4,9 @@ import publicIcon from './join-public.svg';
 import friendsIcon from './join-friends.svg';
 import searchIcon from './join-search.svg';
 
-const Join = ({ onClick }) => (
+const Join = ({ onClick }) => {
+  const worldId = (window.location.href.includes('v1')) ? 'wrld_3a71aacd-b494-401f-a31b-da9735708d57' : 'wrld_f48fec54-9a23-45e5-8dd5-01844e4a597f';
+  return (
     <InfoArea>
       <h1>入場方法</h1>
       <h2>VRChat内でワールドを開く</h2>
@@ -13,16 +15,17 @@ const Join = ({ onClick }) => (
         <p>メニュー > World から<br/>“GIJUTU” で検索して入場</p>
       </div>
       <h2>ブラウザからワールドを開く</h2> 
-      <a href="https://www.vrchat.com/home/launch?worldId=wrld_3a71aacd-b494-401f-a31b-da9735708d57" target="_blank" rel="noopener noreferrer" alt="Pulic launch">
+      <a href={`https://www.vrchat.com/home/launch?worldId=${worldId}`} target="_blank" rel="noopener noreferrer" alt="Pulic launch">
         <img src={publicIcon} alt="Public"/>
         <span>VRChat公式サイトに移動して<br/>“LAUNCH WORLD”から入場</span>
       </a>
-      <a href="https://www.vrchat.com/home/world/wrld_3a71aacd-b494-401f-a31b-da9735708d57" target="_blank" rel="noopener noreferrer" alt="Other launch">
+      <a href={`https://www.vrchat.com/home/world/${worldId}`} target="_blank" rel="noopener noreferrer" alt="Other launch">
         <img src={friendsIcon} alt="Friends"/>
         <span>VRChat公式サイトにログイン後<br/>“INSTANCES”から入場</span>
       </a>
     </InfoArea>
-)
+  );
+};
 export default Join;
 
 const isMobile = window.outerWidth < 800;

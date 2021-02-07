@@ -9,14 +9,13 @@ const Header = () => {
       <div>
         <HeaderItem href="./" title="VRC技術市">
           <img src={logo} alt="VRC技術市"/>
-          <span className="hm">VRC技術市</span>
+          <span className="hm">
+            VRC技術市
+            {(window.location.href.includes('v1')) ? 'Ⅰ' : 'Ⅱ'}
+          </span>
         </HeaderItem>
-        {(window.location.href.includes('v1')) && (
-          <React.Fragment>
-            <HeaderItem href="./catalog" title="カタログ">カタログ</HeaderItem>
-            <HeaderItem href="./join" title="入場方法">入場方法</HeaderItem>
-          </React.Fragment>
-        )}
+        <HeaderItem href="./catalog" title="カタログ">カタログ</HeaderItem>
+        <HeaderItem href="./join" title="入場方法">入場方法</HeaderItem>
       </div>
       <div>
         {(!window.location.pathname.includes('users')) && (
@@ -27,7 +26,6 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;
 
 const SwitchVersion = () => {

@@ -35,6 +35,7 @@ export default function App() {
           <Route path="/v1/" component={V1NonLoginView} />
 
           <Route path="/users" component={Uploader} />
+          <Route path="/catalog" component={V2Catalog} />
           <Route path="/catalog-d8b01fb7b503f03eae23" component={V2Catalog} />
           <Route path="/join" component={Join} />
           <Route path="/config" component={Config} />

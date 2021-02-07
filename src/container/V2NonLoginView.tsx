@@ -22,12 +22,14 @@ const NonLoginView = () => (
           20<span>日(土)・</span>
           21<span>日(日)</span>
         </p>
-        <p>
-          <span className="label">出展申込締切 : </span>
-          2020<span>年 </span>
-          12<span>月</span>
-          20<span>日(日)</span>
-        </p>
+        {process.env.REACT_APP_RECRUITMENT === 'true' && (
+          <p>
+            <span className="label">出展申込締切 : </span>
+            2020<span>年 </span>
+            12<span>月</span>
+            20<span>日(日)</span>
+          </p>
+        )}
       </DaysArea>
       {process.env.REACT_APP_RECRUITMENT === 'true' && (
         <React.Fragment>
@@ -149,7 +151,7 @@ const DaysArea = styled.div`
     `}
     ${media.greaterThan("medium")`
       text-align: right;
-      width: 8em;
+      width: 6em;
       display: inline-block;
     `}
   }
