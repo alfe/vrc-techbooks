@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { getUserList } from '../config';
+// import { getUserList } from '../config';
 import BoothDetail from '../component/BoothDetail';
 import CatalogGenreList from '../component/CatalogGenreListv2';
 import UserIcon from '../component/UserIcon';
-// import { getV1Data } from '../assets/v1data';
+import { getV2Data } from '../assets/v2data';
 import '../css/v2-icons.css';
 
 const V2Catalog = React.memo(() => {
@@ -24,16 +24,17 @@ const V2Catalog = React.memo(() => {
   const [rotate, setRotate] = React.useState(0);
   const [height] = React.useState(40);
   const [selected, setSelect] = React.useState("mmnk_vt");
-  const [genre, setGenre] = React.useState([]);
+  const [genre, setGenre] = React.useState<string[]>([]);
   const [zoom, setZoom] = React.useState(false);
   React.useEffect(() => {
-    getUserList(setList);
+    setList(getV2Data());
+    // getUserList(setList);
   }, []);
   React.useEffect(() => {
     setRotate(360/list.length);
   }, [list]);
 
-  const setMatchGenre = (gen) => {
+  const setMatchGenre = (gen: string) => {
     if (genre.includes(gen)) {
       const newGenre = genre.filter(n => n !== gen);
       setGenre(newGenre)
