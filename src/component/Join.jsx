@@ -5,7 +5,7 @@ import friendsIcon from './join-friends.svg';
 import searchIcon from './join-search.svg';
 
 const Join = ({ onClick }) => {
-  const worldId = (window.location.href.includes('v1')) ? 'wrld_3a71aacd-b494-401f-a31b-da9735708d57' : 'wrld_f48fec54-9a23-45e5-8dd5-01844e4a597f';
+  const worldId = (window.location.href.includes('v1')) ? 'wrld_f48fec54-9a23-45e5-8dd5-01844e4a597f' : 'wrld_3a71aacd-b494-401f-a31b-da9735708d57';
   return (
     <InfoArea>
       <h1>入場方法</h1>

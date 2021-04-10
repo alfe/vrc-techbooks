@@ -66,9 +66,9 @@ const Config = React.memo(() => {
             <td><img src={item.photoURL} alt=""/></td>
             <td>{item.displayName}</td>
             <td><a href={`https://twitter.com/${item.twitterId}`}>{item.twitterId}</a></td>
-            <td>{!item.MenuSubmittedAt ? '' : item.MenuSubmittedAt.slice(5,9)}</td>
-            <td>{!item.PosterSubmittedAt ? '' : item.PosterSubmittedAt.slice(5,9)}</td>
-            <td>{!item.PDFSubmittedAt ? '' : item.PDFSubmittedAt.slice(5,9)}</td>
+            <td>{!item.MenuSubmittedAt ? '' : item.MenuSubmittedAt.slice(5,15)}</td>
+            <td>{!item.PosterSubmittedAt ? '' : item.PosterSubmittedAt.slice(5,15)}</td>
+            <td>{!item.PDFSubmittedAt ? '' : item.PDFSubmittedAt.slice(5,15)}</td>
             <td>{item.totalPages}</td>
             <td>{!item.totalPages ? '' : <a href={`${process.env.REACT_APP_FIREBASE_STORAGE_URL}${item.twitterId}%2F${item.twitterId}-cover.png?alt=media`} >img</a>}</td>
             <td>{!item.boothURL ? '' : <a href={item.boothURL}>url</a>}</td>
